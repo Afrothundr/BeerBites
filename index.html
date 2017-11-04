@@ -9,6 +9,7 @@
 </head>
 <body>
 
+	
 	<section class="container-body">
     	<section id="header-banner">
 	      <div class="jumbotron jumbotron-fluid" id="jumbotron">
@@ -18,56 +19,112 @@
     	</section>
   	</section>
 
-		<div class="row">
-		    <h2>What are you drinking?</h2>
-		  </div>
-		  <br>
-		    <div class="row">
-			    <div class="col-md-3"></div>
-			    <div class="col-md-6">
-			    	<div class="md-form">
-    					<input type="text" id="form1" class="form-control">
-    					<label for="form1" class="search-box"></label>
-					</div>
-			     <div class="col-md-3"></div>
-			    </div>
-		  	</div>
+<!-- Start Screen -->
+		<section id="start-screen">
+			<div class="row">
+			    <h2>What are you drinking?</h2>
+			  </div>
+			  <br>
+			    <div class="row">
+				    <div class="col-md-3"></div>
+				    <div class="col-md-6">
+				    	<div class="md-form">
+	    					<input type="text" id="form1" class="form-control">
+	    					<label for="form1" class="search-box"></label>
+						</div>
+				     <div class="col-md-3"></div>
+				    </div>
+			  	</div>
 
 
-		  	<br>
-		  	<div class="row">
-		  		<div class="col-md-4"></div>
-		  		<div class="col-md-4">
-		  				<button class="btn btn-primary" id="search">
-		      			<p>Search!</p>
-		      		</button>
-		      	</div>
-		      	<div class="col-md-4"></div>
-		  	</div>
-		  	<br>
-		  <div class="row">
-		  	<h2>No Beer? Here's What We Reccommend.</h2>
-		  </div>
-		  <br>
-		  <br>
-		  <div class="col-md-3"></div>
-		  <div class="col-md-6">
-		  <div class="row" id="results">
-		  	<div class="col-md-4">
-		  		<button class="btn btn-primary" id="beer1">
-		      		<span>Placeholder</span></button>
-		  	</div>
-		  	<div class="col-md-4">
-		  		<button class="btn btn-primary" id="beer2">
-		      		<span>Placeholder</span></button>
-		  	</div>
-		  	<div class="col-md-4">
-		  		<button class="btn btn-primary" id="beer2">
-		      		<span>Placeholder</span></button>
-		  	</div>
-		  </div>
-		</div>
-		<div class="col-md-3"></div>
+			  	<br>
+			  	<div class="row">
+			  		<div class="col-md-4"></div>
+			  		<div class="col-md-4">
+			  				<button class="btn btn-primary" id="search">
+			      			<p>Search!</p>
+			      		</button>
+			      	</div>
+			      	<div class="col-md-4"></div>
+			  	</div>
+			  	<br>
+			  <div class="row">
+			  	<h2>No Beer? Here's What We Reccommend.</h2>
+			  </div>
+			  <br>
+			  <br>
+			  <div class="col-md-3"></div>
+			  <div class="col-md-6">
+			  <div class="row" id="results">
+			  	<div class="col-md-4">
+			  		<button class="btn btn-primary" id="beer1">
+			      		<span>Placeholder</span></button>
+			  	</div>
+			  	<div class="col-md-4">
+			  		<button class="btn btn-primary" id="beer2">
+			      		<span>Placeholder</span></button>
+			  	</div>
+			  	<div class="col-md-4">
+			  		<button class="btn btn-primary" id="beer2">
+			      		<span>Placeholder</span></button>
+			  	</div>
+			  </div>
+			</div>
+			<div class="col-md-3"></div>
+		</section>
+
+
+
+
+<!-- results page -->
+	<section id="results-screen">
+      <div class="row">
+
+        <!-- Your Beer Info -->
+        <div id="your-beer" class="col-sm-4">
+          <!-- Section Header -->
+            <div id class="titles" class="row">
+              <h2>Your Beer</h2>
+            </div>
+
+            <div class="row">
+            	<div class="col-sm-12">
+            	test box 1
+            	</div>
+            </div>
+        </div>
+
+        <!--How to Drink  -->
+        <div id="how-to-drink" class="col-sm-4">
+          <!-- Section Header -->
+            <div class="titles" class="row">
+              <h2>How To Drink</h2>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+              <!-- info about how to drink will go here (image) -->
+              <img id="glass-image" src="assets/images/thistle.jpg">
+            </div>
+            </div>
+        </div>
+
+        <!-- Food Results -->
+        <div id="food-results" class="col-sm-4">
+          <!-- Section Header -->
+            <div class="titles" class="row">
+              <h2>How To Pair</h2>
+            </div>
+
+            <div class="row">
+            	<div class="col-sm-12">
+            	test box 3
+            	</div>
+              <!-- Food API repults here -->
+            </div>
+        </div>
+      </div>
+    </section>
 
 	  <!-- JQuery -->
      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
