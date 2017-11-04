@@ -7,7 +7,21 @@
     height: 300px;
 
 }
+ 
+.form-control:focus {
+  border: none;
+  -webkit-box-shadow: none;
+  outline: -webkit-focus-ring-color auto 0px;
+}
 
+#form1 {
+	height: 80px;
+	font-size: 60px;
+	text-align: center;
+	color: #808080;
+	text-transform: capitalize;
+	font-family: 'Roboto', sans-serif;
+}
 .btn-primary {
 	background-color: white;
 	border-color: white;
