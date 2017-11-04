@@ -2,6 +2,10 @@
 var proxy = "https://cors-anywhere.herokuapp.com/"
 var beerResult = "";
 var style = "";
+$("#search").click(function(){
+	searchBeer();
+
+});
 
 function getFoodPairing(){
 
@@ -25,10 +29,7 @@ function getFoodPairing(){
 
 $("#search").click(function(){
 	searchBeer();
-	displayBeer();
 });
-
-
 
 function searchBeer() {
         var beer = $("#form1").val().trim();
