@@ -1,5 +1,7 @@
-var proxy = "https://cors-anywhere.herokuapp.com/"
 
+var proxy = "https://cors-anywhere.herokuapp.com/"
+var beerResult = "";
+var style = "";
 $("#search").click(function(){
 	searchBeer();
 
@@ -22,13 +24,17 @@ function getFoodPairing(){
 
 }//end of getFoodPairing()
 
-getFoodPairing();
+// getFoodPairing();
 
+
+$("#search").click(function(){
+	searchBeer();
+});
 
 function searchBeer() {
-        var beer = $("#search").val().trim();
-        var queryURL = proxy + "https://api.brewerydb.com/v2/search?q=bud+light&type=beer&key=0191c57ff93f0b5868e91f7e67f611e7&format=json";
-        
+        var beer = $("#form1").val().trim();
+        var queryURL = proxy + "https://api.brewerydb.com/v2/search?q=" + beer + "&type=beer&key=0191c57ff93f0b5868e91f7e67f611e7&format=json";
+
         $.ajax({
           url: queryURL,
           method: "GET",
@@ -36,9 +42,21 @@ function searchBeer() {
           dataType: "json",
           contentType: "application/json"
         }).done(function(response) {
+          beerResult = response.data[0].name;
+          style = response.data[0].style.shortName;
+        // append results to page
+        var beerDiv = $("<div>");
+       	var beerHeader = $("<h3>");
+       	var styleHeader = $("<h3>");
+
+       	beerHeader.html(beerResult);
+       	styleHeader.html(style);
+       	beerDiv.append(beerHeader, styleHeader);
+       	$("#results").append(beerDiv);
+
           console.log(beer);
-          console.log(response.data[0].name);
-          console.log(response.data[0].style.category.name);
+          console.log(beerResult);
+          console.log(style);
         });
 
 }
