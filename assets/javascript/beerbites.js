@@ -2,34 +2,65 @@
 var proxy = "https://cors-anywhere.herokuapp.com/"
 var beerResult = "";
 var style = "";
-// var foodPairings {
-// 	"American-Style Pale Ale"
-// 	'Fresh "Wet" Hop Ale'
-// 	'Pale American-Belgo-Style Ale'
-// 	'Dark American-Belgo-Style Ale'
-// 	'American-Style Strong Pale Ale'
-// 	'American-Style India Pale Ale'
-// 	'Imperial or Double India Pale Ale'
-// 	'American-Style Amber/Red Ale'
-// 	'Imperial Red Ale'
-// 	'American-Style Barley Wine Ale'
-// 	'American-Style Wheat Wine Ale'
-// 	'Golden or Blonde Ale'
-// 	'American-Style Brown Ale'
-// 	'Smoke Porter'
-// 	'American-Style Sour Ale'
-// 	'American-Style Black Ale'
-// 	'American-Style Stout'
-// 	'American-Style Imperial Stout'
-// 	'Specialty Stouts'
-// 	'American-Style Imperial Porter'
-// 	'Session India Pale Ale'
-
-// };
+var label = "";
+var glassID = "";
+var glassware = [
+{ id: '1',
+  name: "Flute",
+  picture: "assets/images/flute.png"
+	},
+{ id: '2',
+  name: "Goblet",
+  picture: "assets/images/goblet.png"
+	},
+{ id: '3',
+  name: "Mug",
+  picture: "assets/images/mug.png"
+	},
+{ id: '4',
+  name: "Pilsner",
+  picture: "assets/images/pilsner.png"
+	},
+{ id: '5',
+  name: "Pilsner",
+  picture: "assets/images/pint.png"
+	},
+{ id: '6',
+  name: "Snifter",
+  picture: "assets/images/snifter.png"
+	},
+{ id: '7',
+  name: "Strange",
+  picture: "assets/images/strange.png"
+	},
+{ id: '8',
+  name: "Tulip",
+  picture: "assets/images/tulip.png"
+	},
+{ id: '9',
+  name: "Weizen",
+  picture: "assets/images/weizen.png"
+	},
+{ id: '10',
+  name: "Oversized Wine Glass",
+  picture: "assets/images/wine.png"
+	},
+{'11': ""},
+{'12': ""},
+{ id: '13',
+  name: "Willi",
+  picture: "assets/images/willi.png"
+	},
+{ id: '14',
+  name: "Thistle",
+  picture: "assets/images/thistle.png"
+	},
+];
 
 $("#searchpic").click(function(){
 	searchBeer();
-
+	$("#start-screen").css("display", "none");
+    $("#results-screen").css("display", "block");
 });
 
 function getFoodPairing(){
@@ -53,13 +84,6 @@ function getFoodPairing(){
 
 
 
-$("#searchpic").click(function(){
-	searchBeer();
-  $("#start-screen").css("display", "none");
-  $("#results-screen").css("display", "block");
-});
-
-
 function searchBeer() {
         var beer = $("#form1").val().trim();
         var queryURL = proxy + "https://api.brewerydb.com/v2/search?q=" + beer + "&type=beer&key=0191c57ff93f0b5868e91f7e67f611e7&format=json";
@@ -73,15 +97,24 @@ function searchBeer() {
         }).done(function(response) {
           beerResult = response.data[0].name;
           style = response.data[0].style.shortName;
+          label = response.data[0].labels.medium;
+          glassID = response.data[0].glasswareID;
+
         // append results to page
         var beerDiv = $("<div>");
        	var beerHeader = $("<h3>");
        	var styleHeader = $("<h3>");
+       	var beerImg = $("<img>");
 
        	beerHeader.html(beerResult);
+       	beerImg.attr("src", label);
+       	beerImg.addClass("beer-img");
        	styleHeader.html(style);
-       	beerDiv.append(beerHeader, styleHeader);
-       	$("#results").append(beerDiv);
+       	beerDiv.append(beerHeader, beerImg, styleHeader);
+       	$("#beer-results").empty();
+       	$("#beer-results").append(beerDiv);
+
+
 
           console.log(beer);
           console.log(beerResult);
