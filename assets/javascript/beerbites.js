@@ -52,6 +52,14 @@ function getFoodPairing(){
 // getFoodPairing();
 
 
+
+$("#search").click(function(){
+	searchBeer();
+  $("#start-screen").css("display", "none");
+  $("#results-screen").css("display", "block");
+});
+
+
 function searchBeer() {
         var beer = $("#form1").val().trim();
         var queryURL = proxy + "https://api.brewerydb.com/v2/search?q=" + beer + "&type=beer&key=0191c57ff93f0b5868e91f7e67f611e7&format=json";

@@ -61,3 +61,33 @@ p {
 .btn-primary {
 	border-radius: 0;
 }
+
+#results-screen{
+	display: none;
+}
+
+#your-beer{
+	animation-name: beerSlide;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-delay: 
+}
+
+#how-to-drink{
+	animation-name: beerSlide;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-delay: 250ms;
+}
+
+#food-results{
+	animation-name: beerSlide;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-delay: 500ms;
+}
+
+
+@keyframes beerSlide {
+    0%   {top:500px;}
+    100% {top:0px;}
