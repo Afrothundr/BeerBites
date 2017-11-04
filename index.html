@@ -6,6 +6,12 @@
 	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	 <!-- CSS -->
 	 <link rel="stylesheet" type="text/css" href="assets/css/style2.css">
+
+	<!-- font links -->
+	 <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+	 <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Roboto" rel="stylesheet">
+	 <link href="https://fonts.googleapis.com/css?family=Roboto:500" rel="stylesheet">
+
 </head>
 <body>
 
@@ -19,61 +25,81 @@
     	</section>
   	</section>
 
-<!-- Start Screen -->
-		<section id="start-screen">
-			<div class="row">
-			    <h2>What are you drinking?</h2>
-			  </div>
-			  <br>
-			    <div class="row">
-				    <div class="col-md-3"></div>
-				    <div class="col-md-6">
-				    	<div class="md-form">
-	    					<input type="text" id="form1" class="form-control">
-	    					<label for="form1" class="search-box"></label>
-						</div>
-				     <div class="col-md-3"></div>
-				    </div>
-			  	</div>
+<section id="start-screen">
+<div class="row">
+		    <h2>What are you drinking?</h2>
+		  </div>
+		  <br>
+		    <div class="row">
+			    <div class="col-md-3"></div>
+			    <div class="col-md-6">
+			    	<div class="md-form">
+    					<input type="text" id="form1" class="form-control">
+    					<label for="form1" class="search-box"></label>
+					</div>
+			     <div class="col-md-3"></div>
+			    </div>
+		  	</div>
+		  	<div class="row">
+		  		<div class="col-md-4"></div>
+		  		<div class="col-md-4">
 
+		  			<img src="assets/images/search-btn.png" id="searchpic">
 
-			  	<br>
-			  	<div class="row">
-			  		<div class="col-md-4"></div>
-			  		<div class="col-md-4">
-			  				<button class="btn btn-primary" id="search">
-			      			<p>Search!</p>
-			      		</button>
-			      	</div>
-			      	<div class="col-md-4"></div>
-			  	</div>
-			  	<br>
-			  <div class="row">
-			  	<h2>No Beer? Here's What We Reccommend.</h2>
-			  </div>
-			  <br>
-			  <br>
-			  <div class="col-md-3"></div>
-			  <div class="col-md-6">
-			  <div class="row" id="results">
-			  	<div class="col-md-4">
-			  		<button class="btn btn-primary" id="beer1">
-			      		<span>Placeholder</span></button>
-			  	</div>
-			  	<div class="col-md-4">
-			  		<button class="btn btn-primary" id="beer2">
-			      		<span>Placeholder</span></button>
-			  	</div>
-			  	<div class="col-md-4">
-			  		<button class="btn btn-primary" id="beer2">
-			      		<span>Placeholder</span></button>
-			  	</div>
-			  </div>
-			</div>
-			<div class="col-md-3"></div>
-		</section>
-
-
+		      	</div>
+		      	<div class="col-md-4"></div>
+		  	</div>
+		  	<br>
+		  	<br>
+		  <div class="row">
+		  	<p>No Beer? Here's What We Recommend.</p>
+		  </div>
+		  <div class="col-md-3"></div>
+		  <div class="col-md-6">
+		  <div class="row" id="results">
+		  	<div class="col-md-4">
+		  		<h3>Feeling a Stout?</h3>
+		  		<button class="btn btn-primary" id="beer1">
+		      		<span>Placeholder</span></button>
+		      		<br>
+		      		<br>
+		      	<button class="btn btn-primary" id="beer1">
+		      		<span>Placeholder</span></button>
+		      		<br>
+		      		<br>
+		      	<button class="btn btn-primary" id="beer1">
+		      		<span>Placeholder</span></button>
+		  	</div>
+		  	<div class="col-md-4">
+		  		<h3>Feeling a Lager?</h3>
+		  		<button class="btn btn-primary" id="beer2">
+		      		<span>Placeholder</span></button>
+		      	<br>
+		      	<br>
+		      	<button class="btn btn-primary" id="beer1">
+		      		<span>Placeholder</span></button>
+		      	<br>
+		      	<br>
+		      	<button class="btn btn-primary" id="beer1">
+		      		<span>Placeholder</span></button>
+		  	</div>
+		  	<div class="col-md-4">
+		  		<h3>Feeling an IPA?</h3>
+		  		<button class="btn btn-primary" id="beer2">
+		      		<span>Placeholder</span></button>
+		      	<br>
+		      	<br>
+		      	<button class="btn btn-primary" id="beer1">
+		      		<span>Placeholder</span></button>
+		      	<br>
+		      	<br>
+		      	<button class="btn btn-primary" id="beer1">
+		      		<span>Placeholder</span></button>
+		  	</div>
+		  </div>
+		</div>
+		<div class="col-md-3"></div>
+</section>
 
 
 <!-- results page -->
@@ -126,10 +152,12 @@
       </div>
     </section>
 
+
+
 	  <!-- JQuery -->
      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
      <script src="assets/javascript/beerbites.js"></script>
-     
+
 </body>
 </html>

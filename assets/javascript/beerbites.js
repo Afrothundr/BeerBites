@@ -2,6 +2,31 @@
 var proxy = "https://cors-anywhere.herokuapp.com/"
 var beerResult = "";
 var style = "";
+// var foodPairings {
+// 	"American-Style Pale Ale"
+// 	'Fresh "Wet" Hop Ale'
+// 	'Pale American-Belgo-Style Ale'
+// 	'Dark American-Belgo-Style Ale'
+// 	'American-Style Strong Pale Ale'
+// 	'American-Style India Pale Ale'
+// 	'Imperial or Double India Pale Ale'
+// 	'American-Style Amber/Red Ale'
+// 	'Imperial Red Ale'
+// 	'American-Style Barley Wine Ale'
+// 	'American-Style Wheat Wine Ale'
+// 	'Golden or Blonde Ale'
+// 	'American-Style Brown Ale'
+// 	'Smoke Porter'
+// 	'American-Style Sour Ale'
+// 	'American-Style Black Ale'
+// 	'American-Style Stout'
+// 	'American-Style Imperial Stout'
+// 	'Specialty Stouts'
+// 	'American-Style Imperial Porter'
+// 	'Session India Pale Ale'
+
+// };
+
 $("#search").click(function(){
 	searchBeer();
 
@@ -27,11 +52,13 @@ function getFoodPairing(){
 // getFoodPairing();
 
 
+
 $("#search").click(function(){
 	searchBeer();
   $("#start-screen").css("display", "none");
   $("#results-screen").css("display", "block");
 });
+
 
 function searchBeer() {
         var beer = $("#form1").val().trim();
