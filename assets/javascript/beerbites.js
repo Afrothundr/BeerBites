@@ -53,7 +53,7 @@ function getFoodPairing(){
 
 
 
-$("#search").click(function(){
+$("#searchpic").click(function(){
 	searchBeer();
   $("#start-screen").css("display", "none");
   $("#results-screen").css("display", "block");
