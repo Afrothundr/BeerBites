@@ -27,7 +27,7 @@ var style = "";
 
 // };
 
-$("#search").click(function(){
+$("#searchpic").click(function(){
 	searchBeer();
 
 });
