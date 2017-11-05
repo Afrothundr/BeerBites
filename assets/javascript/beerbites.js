@@ -61,12 +61,13 @@ $('document').ready(function(){
 	$("#searchpic").click(function(){
 		searchBeer();
 	});
-	//add enter button submit capabilities
-	// $(document).keypress(function(e) {
-	// 	 if(e.which == 13){//Enter key pressed
- //            $('#searchpic').click();//Trigger search button click event
- //        }
- //    });
+
+	// add enter button submit capabilities
+	$(document).keypress(function(e) {
+		 if(e.which == 13 && $("#form1").val().trim() !== ""){//Enter key pressed
+            $('#searchpic').click();//Trigger search button click event
+        }
+    });
 
 
 
@@ -108,40 +109,41 @@ $('document').ready(function(){
 	          style = response.data[0].style.shortName;
 	          label = response.data[0].labels.medium;
 	          glassID = response.data[0].glasswareId;
+	          	//check to make sure search has a valid response from the api
+			    if (typeof beerResult === "undefined") {
+			 		//This stuff is having trouble firing for some reason..
+					console.log("not a beer...");
+					$("#main").html("Try Picking Another Beer");
+				} else {
+			        // append results to page
+			        var beerDiv = $("<div>");
+			       	var beerHeader = $("<h3>");
+			       	var styleHeader = $("<h3>");
+			       	var beerImg = $("<img>");
+			       	var glassHeader = $("<h3>");
 
-	        // append results to page
-	        var beerDiv = $("<div>");
-	       	var beerHeader = $("<h3>");
-	       	var styleHeader = $("<h3>");
-	       	var beerImg = $("<img>");
-	       	var glassHeader = $("<h3>");
+			       	beerHeader.html(beerResult);
+			       	beerImg.attr("src", label);
+			       	beerImg.addClass("beer-img");
+			       	styleHeader.html(style);
+			       	beerDiv.append(beerHeader, beerImg, styleHeader);
+			       	$("#beer-results").empty();
+			       	$("#beer-results").append(beerDiv);
 
-	       	beerHeader.html(beerResult);
-	       	beerImg.attr("src", label);
-	       	beerImg.addClass("beer-img");
-	       	styleHeader.html(style);
-	       	beerDiv.append(beerHeader, beerImg, styleHeader);
-	       	$("#beer-results").empty();
-	       	$("#beer-results").append(beerDiv);
+			       	//Add Glass picture and info
+			       	glassHeader.html(glassware[glassID - 1].name);
+			       	$("#glass-image").attr("src", glassware[glassID - 1].picture);
+			       	$("#glass-results").prepend(glassHeader);
 
-	       	glassHeader.html(glassware[glassID - 1].name);
-	       	$("#glass-image").attr("src", glassware[glassID - 1].picture);
-	       	$("#glass-results").prepend(glassHeader);
+			       	//Show Results page
+			       	$("#start-screen").css("display", "none");
+				    $("#results-screen").css("display", "block");
 
-	          console.log(beer);
-	          console.log(beerResult);
-	          console.log(style);
+			          console.log(beer);
+			          console.log(beerResult);
+			          console.log(style);
+	        	};
 	        });
-	    //Check to make sure beer is vaild
-	 //    if (beerResult !== null) {
-		// 	$("#start-screen").css("display", "none");
-		//     $("#results-screen").css("display", "block");
-		// } else {
-		// 	$("#main").html("Try Picking Another Beer");
-		// }
-		$("#start-screen").css("display", "none");
-		$("#results-screen").css("display", "block");
-
 	}
 });
 
