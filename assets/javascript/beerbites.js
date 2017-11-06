@@ -27,8 +27,13 @@ var style = "";
 
 // };
 
+
+
 $("#searchpic").click(function(){
 	searchBeer();
+  $("#start-screen").css("display", "none");
+  $("#results-screen").css("display", "block");
+
 
 });
 
@@ -50,14 +55,6 @@ function getFoodPairing(){
 }//end of getFoodPairing()
 
 // getFoodPairing();
-
-
-
-$("#searchpic").click(function(){
-	searchBeer();
-  $("#start-screen").css("display", "none");
-  $("#results-screen").css("display", "block");
-});
 
 
 function searchBeer() {
