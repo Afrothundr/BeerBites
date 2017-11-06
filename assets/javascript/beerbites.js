@@ -4,6 +4,7 @@ $('document').ready(function(){
 	var style = "";
 	var label = "";
 	var glassID = "";
+	var callResults = [];
 	//glassware object array
 	var glassware = [
 	{ id: '1',
@@ -105,17 +106,15 @@ $('document').ready(function(){
 	          dataType: "json",
 	          contentType: "application/json"
 	        }).done(function(response) {
-	          beerResult = response.data[0].name;
-	          style = response.data[0].style.shortName;
-	          label = response.data[0].labels.medium;
-	          glassID = response.data[0].glasswareId;
+	          callResults = Object.keys(response).length;
+	          console.log(callResults);
 	          	//check to make sure search has a valid response from the api
-			    if (typeof beerResult === "undefined") {
-			 		//This stuff is having trouble firing for some reason..
-					console.log("not a beer...");
-					$("#main").html("Try Picking Another Beer");
-				} else {
-			        // append results to page
+			    if (callResults > 2) {
+			    beerResult = response.data[0].name;
+		        style = response.data[0].style.shortName;
+		        label = response.data[0].labels.medium;
+		        glassID = response.data[0].glasswareId;
+			    	// append results to page
 			        var beerDiv = $("<div>");
 			       	var beerHeader = $("<h3>");
 			       	var styleHeader = $("<h3>");
@@ -142,6 +141,11 @@ $('document').ready(function(){
 			          console.log(beer);
 			          console.log(beerResult);
 			          console.log(style);
+				} else {
+			      //Alert user to pick another beer
+					console.log("not a beer...");
+					$("#main").html("Try Picking Another Beer");
+
 	        	};
 	        });
 	}
