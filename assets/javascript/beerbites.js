@@ -61,6 +61,21 @@ $('document').ready(function(){
 		},
 	];
 
+  
+
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyA1q-yWVD1cjH64Kqtcy1glm0mLxnij9lE",
+    authDomain: "beerdb-d39e4.firebaseapp.com",
+    databaseURL: "https://beerdb-d39e4.firebaseio.com",
+    projectId: "beerdb-d39e4",
+    storageBucket: "beerdb-d39e4.appspot.com",
+    messagingSenderId: "455037721802"
+  };
+  firebase.initializeApp(config);
+
+  var database = firebase.database();
+
 	$("#searchpic").click(function(){
 		searchBeer();
 	});
@@ -76,9 +91,31 @@ $('document').ready(function(){
 
 
 	function getFoodPairing(){
+    var searchFood;
 
-    var searchFood = database.ref(style.toLowerCase());
-    console.log("Food to search in API: " + searchFood);
+    // //var searchFood = database.ref();
+    // // var searchFood = database.ref(style.toLowerCase());
+    // // var n = searchFood.search(".com/");
+    // // var newposition = n + 5;
+    // // var styleInFirebase = searchFood.substr(newposition);
+    // searchFood.on('child_added', function(snapshot) {
+    //   //console.log("Snapshot: " + snapshot);
+    //   childData = snapshot.val();
+ 
+    // });//end of snapshot
+
+    database.ref().on('value', function(snapshot){
+      //console.log("dbReference: " + dbReference);
+      var childStyle = snapshot.child(style.toLowerCase()).value();
+      console.log("childStyle: " + childStyle);
+      // if (snapshot.child("Maibock").exists()){
+      //  // searchFood = this.val();      }
+      //   //console.log("Food to search in API: " + searchFood);
+      //   console.log("I EXIST");
+      // }
+
+    });//end of database.ref()
+    //console.log("Food to search in API: " + searchFood);
 		//var searchFood = "grilled meats";
 		var queryUrl = "https://api.yummly.com/v1/api/recipes?_app_id=7a03c2e6&_app_key=ee6cb6cfac34db8059806a0aeb1b2c42&q=" 
 			+ searchFood;
@@ -133,6 +170,7 @@ $('document').ready(function(){
 					    	//Get Style and add to header
 				            style = response.data[0].style.shortName;
 				            styleHeader.html(style);
+                    getFoodPairing();
 				           } if (beerIndex.includes("labels")) {
 				           	  //Get label and add it to image
 				        	  label = response.data[0].labels.medium;
@@ -150,7 +188,7 @@ $('document').ready(function(){
 			       	$("#beer-results").empty();
 			       	$("#beer-results").append(beerDiv);
 			       	$("#glass-results").prepend(glassHeader);
-              getFoodPairing();
+             // getFoodPairing();
 			       	//Show Results page
 			       	$("#start-screen").css("display", "none");
 				    $("#results-screen").css("display", "block");
