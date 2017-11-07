@@ -125,7 +125,10 @@ $('document').ready(function(){
 			       	beerImg.attr("src", label);
 			       	beerImg.addClass("beer-img");
 			       	styleHeader.html(style);
-			       	beerDiv.append(beerHeader, beerImg, styleHeader);
+			       	beerHeader.addClass("beerinfo");
+			       	styleHeader.addClass("beerinfo");
+			       	glassHeader.addClass("beerinfo");
+			       	beerDiv.append(beerHeader, styleHeader, beerImg);
 			       	$("#beer-results").empty();
 			       	$("#beer-results").append(beerDiv);
 
