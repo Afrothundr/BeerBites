@@ -5,6 +5,7 @@ $('document').ready(function(){
 	var style = "";
 	var label = "";
 	var glassID = "";
+	var beerTemp = "";
 	var callResults = [];
 	var beerIndex = [];
 	//glassware object array
@@ -135,7 +136,7 @@ $('document').ready(function(){
 				            style = response.data[0].style.name;
 				            styleHeader.html(style);
 
-                    getFoodPairing();
+             
 
 				            styleHeader.addClass("beerinfo");
 
@@ -195,14 +196,16 @@ $('document').ready(function(){
 			    if (callResults.length > 2) {
 			    	beerIndex = Object.keys(response.data[0]);
 			    	console.log(beerIndex);
-			    	// append results to page
+				    console.log(response.data[0].abv);
+			    	// declare html variables
 			        var beerDiv = $("<div>");
 			       	var beerHeader = $("<h3>");
 			       	var styleHeader = $("<h3>");
 			       	var beerImg = $("<img>");
 			       	var glassHeader = $("<h3>");
+			       	var beerTempDisplay = $("<h3>");
 
-		
+
 			    	  if (beerIndex.includes("name")) {
 			    	  	//Get Beer Name and add it to Header
 					    beerResult = response.data[0].name;
@@ -230,7 +233,7 @@ $('document').ready(function(){
 
 			       	$("#beer-results").empty();
 			       	$("#beer-results").append(beerDiv);
-			       	$("#glass-results").prepend(glassHeader);
+			       	$("#glass-results").prepend(glassHeader, beerTempDisplay);
 
 			       	//Show Results page
 			       	$("#start-screen").css("display", "none");
