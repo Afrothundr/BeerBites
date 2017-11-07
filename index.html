@@ -144,15 +144,45 @@
               <h2>How To Pair</h2>
             </div>
 
+		
             <div class="row">
-            	<div class="col-sm-12" id="recipe">
-
+            		<section id="recipe-carousel">
+            			<div id="carousel" class="carousel slide" data-ride="carousel">
+				            <ol class="carousel-indicators">
+				                <li data-target="#carousel" data-slide-to="0"></li>
+				                <li data-target="#carousel" data-slide-to="1"></li>
+				                <li data-target="#carousel" data-slide-to="2"></li>
+				            </ol>
+				            <div class="carousel-inner">
+				                <div carousel-clear class="item active">
+				                	<p class="food-item">Food Item 1 Here</p>
+				                    <img src="assets/images/mug.png" alt="Slide 1">
+				                </div>
+				                <div class="item">
+				                	<p class="food-item">Food Item 2 Here</p>
+				                    <img src="assets/images/pint.png" alt="Slide 2">
+				                </div>
+				                <div class="item">
+				                	<p class="food-item">Food Item 3 Here</p>
+				                    <img src="assets/images/tulip.png" alt="Slide 3">
+				                </div>
+				            </div>
+				            <a  href="#carousel" class="left carousel-control" data-slide="prev">
+				                <span  class="glyphicon glyphicon-chevron-left"></span>
+				            </a>
+				            <a  href="#carousel" class="right carousel-control" data-slide="next">
+				                <span  class="glyphicon glyphicon-chevron-right"></span>
+				            </a>
+				        </div>
+					</section>
             	</div>
-              <!-- Food API repults here -->
+              
             </div>
         </div>
       </div>
 
+
+<!-- Search again button -->
       <section id="search-again-btn">
 
 		<div class="row">
@@ -168,8 +198,9 @@
 
 	  <!-- JQuery -->
      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+		
      <script src="assets/javascript/beerbites.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </body>
 </html>
