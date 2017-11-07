@@ -129,7 +129,7 @@ $('document').ready(function(){
         console.log(response.data);
         dishesImgUrls.push(response.images[0].hostedLargeUrl);
         console.log("Image URL: " + dishesImgUrls[0]);
-
+        
         recipeUrls.push(response.attribution.url);
         console.log("Recipe URL: " + recipeUrls[0]);
 
