@@ -7,6 +7,8 @@ $('document').ready(function(){
 	var glassID = "";
 	var callResults = [];
 	var beerIndex = [];
+  var dishesImgUrls = [];
+  var recipeUrls = [];
 	//glassware object array
 	var glassware = [
 	{ id: '1',
@@ -61,6 +63,21 @@ $('document').ready(function(){
 		},
 	];
 
+  
+
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyA1q-yWVD1cjH64Kqtcy1glm0mLxnij9lE",
+    authDomain: "beerdb-d39e4.firebaseapp.com",
+    databaseURL: "https://beerdb-d39e4.firebaseio.com",
+    projectId: "beerdb-d39e4",
+    storageBucket: "beerdb-d39e4.appspot.com",
+    messagingSenderId: "455037721802"
+  };
+  firebase.initializeApp(config);
+
+  var database = firebase.database();
+
 	$("#searchpic").click(function(){
 		searchBeer();
 	});
@@ -83,28 +100,58 @@ $('document').ready(function(){
 
 
 	function getFoodPairing(){
+    var dishesArray = [];
+    var searchFood;
+    var dbRef = database.ref();
+    console.log("Database reference: " + dbRef);
 
-		var searchFood = "grilled meats";
-		var queryUrl = "https://api.yummly.com/v1/api/recipes?_app_id=7a03c2e6&_app_key=ee6cb6cfac34db8059806a0aeb1b2c42&q=" 
+    dbRef.on('value', function(snapshot){          
+      searchFood = snapshot.child(style.toLowerCase()).val();
+      console.log("childStyle: " + snapshot.child(style.toLowerCase()).val()); 
+    });//end of database.ref()
+
+	var queryUrl = "https://api.yummly.com/v1/api/recipes?_app_id=7a03c2e6&_app_key=ee6cb6cfac34db8059806a0aeb1b2c42&q=" 
 			+ searchFood;
 
 		$.ajax({
 				url: queryUrl,
 				method: "GET"
 		}).done(function(response){
-				var results = response.data;
-				console.log(response);
+        for (var i = 0; i < 3; i++){
+          dishesArray.push(response.matches[i].id);
+          console.log("DISHES ARRAY: " + dishesArray[i]);
+
+          var dishesQueryUrl = "https://api.yummly.com/v1/api/recipe/" + dishesArray[i] + 
+          "?_app_id=7a03c2e6&_app_key=ee6cb6cfac34db8059806a0aeb1b2c42";
+          console.log("Recipe Img URL: " + dishesQueryUrl);
+          $.ajax({
+        url: dishesQueryUrl,
+        method: "GET"
+    }).done(function(response){
+        console.log(response.data);
+        dishesImgUrls.push(response.images[0].hostedLargeUrl);
+        console.log("Image URL: " + dishesImgUrls[0]);
+        
+        recipeUrls.push(response.attribution.url);
+        console.log("Recipe URL: " + recipeUrls[0]);
+
+      });//end of inner ajax call
+
+        }//end for
+				
+				
 			
 			});//end of ajax call 
 
 	}//end of getFoodPairing()
 
-	// getFoodPairing();
+	 //getFoodPairing();
 
 
 
 	function searchBeer() {
 	        event.preventDefault();
+          style = "american light lager";
 	        var beer = $("#form1").val().trim();
 	        var queryURL = proxy + "https://api.brewerydb.com/v2/search?q=" + beer + "&type=beer&key=0191c57ff93f0b5868e91f7e67f611e7&format=json";
 
@@ -129,7 +176,7 @@ $('document').ready(function(){
 			       	var beerImg = $("<img>");
 			       	var glassHeader = $("<h3>");
 
-		
+
 			    	  if (beerIndex.includes("name")) {
 			    	  	//Get Beer Name and add it to Header
 					    beerResult = response.data[0].name;
@@ -139,7 +186,11 @@ $('document').ready(function(){
 					    	//Get Style and add to header
 				            style = response.data[0].style.shortName;
 				            styleHeader.html(style);
+
+                    getFoodPairing();
+
 				            styleHeader.addClass("beerinfo");
+
 				           } if (beerIndex.includes("labels")) {
 				           	  //Get label and add it to image
 				        	  label = response.data[0].labels.medium;
@@ -152,14 +203,16 @@ $('document').ready(function(){
 				        	    glassHeader.addClass("beerinfo");
 			       				$("#glass-image").attr("src", glassware[glassID - 1].picture);
 				        	  };
-			    
+
+
 			       	beerDiv.append(beerHeader, styleHeader, beerImg);
+
 
 			       	$("#beer-results").empty();
 			       	$("#beer-results").append(beerDiv);
 			       	$("#glass-results").prepend(glassHeader);
-
-			       	//Show Results page
+             // getFoodPairing();
+			       //	Show Results page
 			       	$("#start-screen").css("display", "none");
 				    $("#results-screen").css("display", "block");
 
