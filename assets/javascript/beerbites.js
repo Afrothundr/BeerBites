@@ -122,14 +122,17 @@ $('document').ready(function(){
 			       	var beerImg = $("<img>");
 			       	var glassHeader = $("<h3>");
 
+		
 			    	  if (beerIndex.includes("name")) {
 			    	  	//Get Beer Name and add it to Header
 					    beerResult = response.data[0].name;
 					    beerHeader.html(beerResult);
+					    beerHeader.addClass("beerinfo");
 					    } if (beerIndex.includes("style")) {
 					    	//Get Style and add to header
 				            style = response.data[0].style.shortName;
 				            styleHeader.html(style);
+				            styleHeader.addClass("beerinfo");
 				           } if (beerIndex.includes("labels")) {
 				           	  //Get label and add it to image
 				        	  label = response.data[0].labels.medium;
@@ -139,10 +142,12 @@ $('document').ready(function(){
 				        		//Add Glass picture and info
 				        	    glassID = response.data[0].glasswareId;
 				        	    glassHeader.html(glassware[glassID - 1].name);
+				        	    glassHeader.addClass("beerinfo");
 			       				$("#glass-image").attr("src", glassware[glassID - 1].picture);
 				        	  };
 			    
-			       	beerDiv.append(beerHeader, beerImg, styleHeader);
+			       	beerDiv.append(beerHeader, styleHeader, beerImg);
+
 			       	$("#beer-results").empty();
 			       	$("#beer-results").append(beerDiv);
 			       	$("#glass-results").prepend(glassHeader);
