@@ -75,22 +75,24 @@ $('document').ready(function(){
 
 	function getFoodPairing(){
 
-		var searchFood = "grilled meats";
+    var searchFood = database.ref(style.toLowerCase());
+    console.log("Food to search in API: " + searchFood);
+		//var searchFood = "grilled meats";
 		var queryUrl = "https://api.yummly.com/v1/api/recipes?_app_id=7a03c2e6&_app_key=ee6cb6cfac34db8059806a0aeb1b2c42&q=" 
 			+ searchFood;
 
-		$.ajax({
-				url: queryUrl,
-				method: "GET"
-		}).done(function(response){
-				var results = response.data;
-				console.log(response);
+		// $.ajax({
+		// 		url: queryUrl,
+		// 		method: "GET"
+		// }).done(function(response){
+		// 		var results = response.data;
+		// 		console.log(response);
 			
-			});//end of ajax call 
+		// 	});//end of ajax call 
 
 	}//end of getFoodPairing()
 
-	// getFoodPairing();
+	 //getFoodPairing();
 
 
 
@@ -120,7 +122,7 @@ $('document').ready(function(){
 			       	var styleHeader = $("<h3>");
 			       	var beerImg = $("<img>");
 			       	var glassHeader = $("<h3>");
-
+              
 			       	beerHeader.html(beerResult);
 			       	beerImg.attr("src", label);
 			       	beerImg.addClass("beer-img");
@@ -133,7 +135,7 @@ $('document').ready(function(){
 			       	glassHeader.html(glassware[glassID - 1].name);
 			       	$("#glass-image").attr("src", glassware[glassID - 1].picture);
 			       	$("#glass-results").prepend(glassHeader);
-
+              getFoodPairing();
 			       	//Show Results page
 			       	$("#start-screen").css("display", "none");
 				    $("#results-screen").css("display", "block");
