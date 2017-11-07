@@ -78,6 +78,7 @@ p {
 }
 
 #results-screen{
+	text-align: center;
 	display: none;
 }
 
@@ -107,6 +108,10 @@ p {
     /*top: -1000px;*/
 }
 
+#search-again-btn{
+	margin-top: 50px;
+	text-align: center;
+}
 
 @keyframes beerSlide {
     from   {transform: translateY(1000px)}
