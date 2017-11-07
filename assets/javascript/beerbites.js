@@ -1,3 +1,4 @@
+
 $('document').ready(function(){
 	var proxy = "https://cors-anywhere.herokuapp.com/"
 	var beerResult = null;
@@ -162,4 +163,5 @@ $('document').ready(function(){
 	        });
 	}
 });
+
 
