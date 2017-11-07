@@ -127,7 +127,7 @@ $('document').ready(function(){
 					    beerHeader.html(beerResult);
 					    } if (beerIndex.includes("style")) {
 					    	//Get Style and add to header
-				            style = response.data[0].style.shortName;
+				            style = response.data[0].style.name;
 				            styleHeader.html(style);
 				           } if (beerIndex.includes("labels")) {
 				           	  //Get label and add it to image
