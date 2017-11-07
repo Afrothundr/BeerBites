@@ -61,9 +61,31 @@ $('document').ready(function(){
 		},
 	];
 
+  
+
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyA1q-yWVD1cjH64Kqtcy1glm0mLxnij9lE",
+    authDomain: "beerdb-d39e4.firebaseapp.com",
+    databaseURL: "https://beerdb-d39e4.firebaseio.com",
+    projectId: "beerdb-d39e4",
+    storageBucket: "beerdb-d39e4.appspot.com",
+    messagingSenderId: "455037721802"
+  };
+  firebase.initializeApp(config);
+
+  var database = firebase.database();
+
 	$("#searchpic").click(function(){
 		searchBeer();
 	});
+
+	$("#search-again-btn").click(function(){
+		$("#start-screen").css("display", "block");
+		$("#results-screen").css("display", "none");
+		$("input[type=text], textarea").val("");
+		$(".beerinfo").remove();
+	})
 
 	// add enter button submit capabilities
 	$(document).keypress(function(e) {
@@ -76,23 +98,47 @@ $('document').ready(function(){
 
 
 	function getFoodPairing(){
+    var searchFood;
 
-		var searchFood = "grilled meats";
+    // //var searchFood = database.ref();
+    // // var searchFood = database.ref(style.toLowerCase());
+    // // var n = searchFood.search(".com/");
+    // // var newposition = n + 5;
+    // // var styleInFirebase = searchFood.substr(newposition);
+    // searchFood.on('child_added', function(snapshot) {
+    //   //console.log("Snapshot: " + snapshot);
+    //   childData = snapshot.val();
+ 
+    // });//end of snapshot
+
+    database.ref().on('value', function(snapshot){
+      //console.log("dbReference: " + dbReference);
+      var childStyle = snapshot.child(style.toLowerCase()).value();
+      console.log("childStyle: " + childStyle);
+      // if (snapshot.child("Maibock").exists()){
+      //  // searchFood = this.val();      }
+      //   //console.log("Food to search in API: " + searchFood);
+      //   console.log("I EXIST");
+      // }
+
+    });//end of database.ref()
+    //console.log("Food to search in API: " + searchFood);
+		//var searchFood = "grilled meats";
 		var queryUrl = "https://api.yummly.com/v1/api/recipes?_app_id=7a03c2e6&_app_key=ee6cb6cfac34db8059806a0aeb1b2c42&q=" 
 			+ searchFood;
 
-		$.ajax({
-				url: queryUrl,
-				method: "GET"
-		}).done(function(response){
-				var results = response.data;
-				console.log(response);
+		// $.ajax({
+		// 		url: queryUrl,
+		// 		method: "GET"
+		// }).done(function(response){
+		// 		var results = response.data;
+		// 		console.log(response);
 			
-			});//end of ajax call 
+		// 	});//end of ajax call 
 
 	}//end of getFoodPairing()
 
-	// getFoodPairing();
+	 //getFoodPairing();
 
 
 
@@ -122,7 +168,7 @@ $('document').ready(function(){
 			       	var beerImg = $("<img>");
 			       	var glassHeader = $("<h3>");
 
-		
+
 			    	  if (beerIndex.includes("name")) {
 			    	  	//Get Beer Name and add it to Header
 					    beerResult = response.data[0].name;
@@ -132,7 +178,11 @@ $('document').ready(function(){
 					    	//Get Style and add to header
 				            style = response.data[0].style.name;
 				            styleHeader.html(style);
+
+                    getFoodPairing();
+
 				            styleHeader.addClass("beerinfo");
+
 				           } if (beerIndex.includes("labels")) {
 				           	  //Get label and add it to image
 				        	  label = response.data[0].labels.medium;
@@ -145,13 +195,15 @@ $('document').ready(function(){
 				        	    glassHeader.addClass("beerinfo");
 			       				$("#glass-image").attr("src", glassware[glassID - 1].picture);
 				        	  };
-			    
+
+
 			       	beerDiv.append(beerHeader, styleHeader, beerImg);
+
 
 			       	$("#beer-results").empty();
 			       	$("#beer-results").append(beerDiv);
 			       	$("#glass-results").prepend(glassHeader);
-
+             // getFoodPairing();
 			       	//Show Results page
 			       	$("#start-screen").css("display", "none");
 				    $("#results-screen").css("display", "block");

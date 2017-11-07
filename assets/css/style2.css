@@ -78,6 +78,7 @@ p {
 }
 
 #results-screen{
+	text-align: center;
 	display: none;
 }
 
@@ -105,6 +106,12 @@ p {
     animation-iteration-count: 1;
     /*animation-delay: 500ms;*/
     /*top: -1000px;*/
+}
+
+
+#search-again-btn{
+	margin-top: 50px;
+	text-align: center;
 }
 
 .beerimg{
