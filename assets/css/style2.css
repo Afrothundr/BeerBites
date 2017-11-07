@@ -140,6 +140,18 @@ p {
 }
 
 
+
+.food-item{
+	font-family: 'Open Sans Condensed', sans-serif;
+	text-align: center;
+	font-size: 25px;
+	width: 100%;
+}
+
+#slider-color{
+	background-color: white;
+}
+
 @keyframes beerSlide {
     from   {transform: translateY(1000px)}
     to {transform: translateY(0px)}
