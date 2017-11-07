@@ -6,6 +6,7 @@ $('document').ready(function(){
 	var label = "";
 	var glassID = "";
 	var callResults = [];
+	var beerIndex = [];
 	//glassware object array
 	var glassware = [
 	{ id: '1',
@@ -107,14 +108,13 @@ $('document').ready(function(){
 	          dataType: "json",
 	          contentType: "application/json"
 	        }).done(function(response) {
-	          callResults = Object.keys(response).length;
+	          callResults = Object.keys(response);
 	          console.log(callResults);
+	          console.log(callResults.length);
 	          	//check to make sure search has a valid response from the api
-			    if (callResults > 2) {
-			    beerResult = response.data[0].name;
-		        style = response.data[0].style.shortName;
-		        label = response.data[0].labels.medium;
-		        glassID = response.data[0].glasswareId;
+			    if (callResults.length > 2) {
+			    	beerIndex = Object.keys(response.data[0]);
+			    	console.log(beerIndex);
 			    	// append results to page
 			        var beerDiv = $("<div>");
 			       	var beerHeader = $("<h3>");
@@ -122,17 +122,29 @@ $('document').ready(function(){
 			       	var beerImg = $("<img>");
 			       	var glassHeader = $("<h3>");
 
-			       	beerHeader.html(beerResult);
-			       	beerImg.attr("src", label);
-			       	beerImg.addClass("beer-img");
-			       	styleHeader.html(style);
+			    	  if (beerIndex.includes("name")) {
+			    	  	//Get Beer Name and add it to Header
+					    beerResult = response.data[0].name;
+					    beerHeader.html(beerResult);
+					    } if (beerIndex.includes("style")) {
+					    	//Get Style and add to header
+				            style = response.data[0].style.shortName;
+				            styleHeader.html(style);
+				           } if (beerIndex.includes("labels")) {
+				           	  //Get label and add it to image
+				        	  label = response.data[0].labels.medium;
+				        	  beerImg.attr("src", label);
+			       			  beerImg.addClass("beer-img");
+				        	} if (beerIndex.includes("glasswareId")) {
+				        		//Add Glass picture and info
+				        	    glassID = response.data[0].glasswareId;
+				        	    glassHeader.html(glassware[glassID - 1].name);
+			       				$("#glass-image").attr("src", glassware[glassID - 1].picture);
+				        	  };
+			    
 			       	beerDiv.append(beerHeader, beerImg, styleHeader);
 			       	$("#beer-results").empty();
 			       	$("#beer-results").append(beerDiv);
-
-			       	//Add Glass picture and info
-			       	glassHeader.html(glassware[glassID - 1].name);
-			       	$("#glass-image").attr("src", glassware[glassID - 1].picture);
 			       	$("#glass-results").prepend(glassHeader);
 
 			       	//Show Results page
