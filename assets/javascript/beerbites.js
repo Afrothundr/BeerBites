@@ -98,33 +98,17 @@ $('document').ready(function(){
 
 
 	function getFoodPairing(){
+    
     var searchFood;
+    var dbRef = database.ref();
+    console.log("Database reference: " + dbRef);
 
-    // //var searchFood = database.ref();
-    // // var searchFood = database.ref(style.toLowerCase());
-    // // var n = searchFood.search(".com/");
-    // // var newposition = n + 5;
-    // // var styleInFirebase = searchFood.substr(newposition);
-    // searchFood.on('child_added', function(snapshot) {
-    //   //console.log("Snapshot: " + snapshot);
-    //   childData = snapshot.val();
- 
-    // });//end of snapshot
-
-    database.ref().on('value', function(snapshot){
-      //console.log("dbReference: " + dbReference);
-      var childStyle = snapshot.child(style.toLowerCase()).value();
-      console.log("childStyle: " + childStyle);
-      // if (snapshot.child("Maibock").exists()){
-      //  // searchFood = this.val();      }
-      //   //console.log("Food to search in API: " + searchFood);
-      //   console.log("I EXIST");
-      // }
-
+    dbRef.on('value', function(snapshot){          
+      searchFood = snapshot.child(style.toLowerCase()).val();
+      console.log("childStyle: " + snapshot.child(style.toLowerCase()).val()); 
     });//end of database.ref()
-    //console.log("Food to search in API: " + searchFood);
-		//var searchFood = "grilled meats";
-		var queryUrl = "https://api.yummly.com/v1/api/recipes?_app_id=7a03c2e6&_app_key=ee6cb6cfac34db8059806a0aeb1b2c42&q=" 
+
+	var queryUrl = "https://api.yummly.com/v1/api/recipes?_app_id=7a03c2e6&_app_key=ee6cb6cfac34db8059806a0aeb1b2c42&q=" 
 			+ searchFood;
 
 		// $.ajax({
