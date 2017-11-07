@@ -129,9 +129,11 @@ $('document').ready(function(){
         console.log(response.data);
         dishesImgUrls.push(response.images[0].hostedLargeUrl);
         console.log("Image URL: " + dishesImgUrls[0]);
-        
         recipeUrls.push(response.attribution.url);
-        console.log("Recipe URL: " + recipeUrls[0]);
+        console.log("Recipe URL: " + recipeUrls[0])
+        var recipeDisplay = $("<img>");
+        recipeDisplay.attr("src", dishesImgUrls[0]);
+        ;
 
       });//end of inner ajax call
 
@@ -259,7 +261,7 @@ $('document').ready(function(){
 					    beerHeader.addClass("beerinfo");
 					    } if (beerIndex.includes("style")) {
 					    	//Get Style and add to header
-				            style = response.data[0].style.shortName;
+				            style = response.data[0].style.name;
 				            styleHeader.html(style);
 				            styleHeader.addClass("beerinfo");
 				           } if (beerIndex.includes("labels")) {
