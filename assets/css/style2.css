@@ -84,7 +84,7 @@ p {
 
 #your-beer{
 	height: 200px;
-	background-image: url("coaster.jpg");
+	/*background-image: url("coaster.jpg");*/
 	animation-name: beerSlide;
     animation-duration: 1s;
     animation-iteration-count: 1;
