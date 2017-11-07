@@ -262,7 +262,9 @@ $('document').ready(function(){
 					    	//Get Style and add to header
 				            style = response.data[0].style.shortName;
 				            styleHeader.html(style);
+
 				            getFoodPairing();
+				            
 				            styleHeader.addClass("beerinfo");
 				           } if (beerIndex.includes("labels")) {
 				           	  //Get label and add it to image
