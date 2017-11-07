@@ -183,7 +183,7 @@ $('document').ready(function(){
 				            style = response.data[0].style.name;
 				            styleHeader.html(style);
 
-             
+             				getFoodPairing();
 
 				            styleHeader.addClass("beerinfo");
 
@@ -207,7 +207,6 @@ $('document').ready(function(){
 			       	$("#beer-results").empty();
 			       	$("#beer-results").append(beerDiv);
 			       	$("#glass-results").prepend(glassHeader);
-             // getFoodPairing();
 			       //	Show Results page
 			       	$("#start-screen").css("display", "none");
 				    $("#results-screen").css("display", "block");
@@ -262,9 +261,6 @@ $('document').ready(function(){
 					    	//Get Style and add to header
 				            style = response.data[0].style.shortName;
 				            styleHeader.html(style);
-
-				            getFoodPairing();
-				            
 				            styleHeader.addClass("beerinfo");
 				           } if (beerIndex.includes("labels")) {
 				           	  //Get label and add it to image
