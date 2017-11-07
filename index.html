@@ -27,14 +27,13 @@
 
 <section id="start-screen">
 <div class="row">
-		    <h2>What are you drinking?</h2>
+		    <h2 id="main">What are you drinking?</h2>
 		  </div>
-		  <br>
 		    <div class="row">
 			    <div class="col-md-3"></div>
 			    <div class="col-md-6">
 			    	<div class="md-form">
-    					<input type="text" id="form1" class="form-control">
+    					<input type="text" id="form1" class="form-control" autofocus="autofocus">
     					<label for="form1" class="search-box"></label>
 					</div>
 			     <div class="col-md-3"></div>
@@ -116,8 +115,8 @@
             </div>
 
             <div class="row">
-            	<div class="col-sm-12">
-            	test box 1
+            	<div class="col-sm-12" id="beer-results">
+    
             	</div>
             </div>
         </div>
@@ -130,9 +129,9 @@
             </div>
 
             <div class="row">
-              <div class="col-sm-12">
+              <div class="col-sm-12" id="glass-results">
               <!-- info about how to drink will go here (image) -->
-              <img id="glass-image" src="assets/images/thistle.png">
+              <img id="glass-image">
             </div>
             </div>
         </div>
