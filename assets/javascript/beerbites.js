@@ -80,6 +80,13 @@ $('document').ready(function(){
 		searchBeer();
 	});
 
+	$("#search-again-btn").click(function(){
+		$("#start-screen").css("display", "block");
+		$("#results-screen").css("display", "none");
+		$("input[type=text], textarea").val("");
+		$(".beerinfo").remove();
+	})
+
 	// add enter button submit capabilities
 	$(document).keypress(function(e) {
 		 if(e.which == 13 && $("#form1").val().trim() !== ""){//Enter key pressed
