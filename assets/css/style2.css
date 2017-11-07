@@ -108,10 +108,37 @@ p {
     /*top: -1000px;*/
 }
 
+
 #search-again-btn{
 	margin-top: 50px;
 	text-align: center;
 }
+
+.beerimg{
+	width: 200px;
+	height: 200px;
+}
+
+#beer-results {
+	text-align: center;
+}
+.beerinfo{
+	font-family: 'Open Sans Condensed', sans-serif;
+	font-size: 25px;
+}
+
+#glass-results{
+	text-align: center;
+	font-family: 'Open Sans Condensed', sans-serif;
+	font-size: 25px;
+}
+
+#recipe {
+	font-family: 'Open Sans Condensed', sans-serif;
+	text-align: center;
+	font-size: 25px;
+}
+
 
 @keyframes beerSlide {
     from   {transform: translateY(1000px)}
