@@ -11,6 +11,7 @@ $('document').ready(function(){
 	var recipeUrls = [];
     var searchFood = "";
     var idMatch = ["#recipe-1", "#recipe-2", "#recipe-3"];
+    var titleMatch =["#title-1", "#title-2", "#title-3"];
 	//glassware object array
 	var glassware = [
 	{ id: '1',
@@ -137,14 +138,14 @@ $('document').ready(function(){
         dishesImgUrls.push(response.images[0].hostedLargeUrl);
         recipeUrls.push(response.attribution.url);
 		
-		console.log(idMatch[counter]);
      	var recipeSlide = $("<div>");
         var recipeSlideImg = $("<img>");
         recipeSlideImg.attr("src", response.images[0].hostedLargeUrl);
-
-        recipeSlideImg.wrap("<a href='"+ response.attribution.url + "' </a>");
+        console.log(response.attribution.url);
+        recipeSlideImg.wrap('<a href="' + response.attribution.url + '">');
         recipeSlide.append(recipeSlideImg);
         $(idMatch[counter]).append(recipeSlide);
+        $(titleMatch[counter]).html(response.name);
         
         counter++;
 
