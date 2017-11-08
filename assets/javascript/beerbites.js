@@ -10,6 +10,7 @@ $('document').ready(function(){
 	var dishesImgUrls = [];
 	var recipeUrls = [];
     var searchFood = "";
+    var idMatch = ["#recipe-1", "#recipe-2", "#recipe-3"];
 	//glassware object array
 	var glassware = [
 	{ id: '1',
@@ -113,6 +114,7 @@ $('document').ready(function(){
       var queryUrl = "https://api.yummly.com/v1/api/recipes?_app_id=7a03c2e6&_app_key=ee6cb6cfac34db8059806a0aeb1b2c42&q=" + searchFood;
 		console.log(queryUrl);
 
+	  var counter = 0;
 		$.ajax({
 				url: queryUrl,
 				method: "GET"
@@ -121,16 +123,11 @@ $('document').ready(function(){
 		console.log(response.matches);
         for (var i = 0; i < 3; i++){
           dishesArray.push(response.matches[i].id); 
- //          // console.log("DISHES ARRAY: " + dishesArray[i]);
 
           var dishesQueryUrl = "https://api.yummly.com/v1/api/recipe/" + dishesArray[i] + 
           "?_app_id=7a03c2e6&_app_key=ee6cb6cfac34db8059806a0aeb1b2c42";
           
           console.log("Recipe Img URL: " + dishesQueryUrl);
-
-          // dishesImgUrls.push(response.images[0].hostedLargeUrl);
-          // // console.log(response.images[0].hostedLargeUrl);
-          // recipeUrls.push(response.attribution.url);
 
           $.ajax({
         url: dishesQueryUrl,
@@ -138,11 +135,18 @@ $('document').ready(function(){
    		 }).done(function(response){
         console.log(response);
         dishesImgUrls.push(response.images[0].hostedLargeUrl);
-        // console.log("Image URL: " + dishesImgUrls[0]);
-        // console.log(response.images[0].hostedLargeUrl)
         recipeUrls.push(response.attribution.url);
-        // console.log("Recipe URL: " + recipeUrls[0]);
-     // $("div.recipe-displays div img").attr("src", dishesImgUrls[0]);
+		
+		console.log(idMatch[counter]);
+     	var recipeSlide = $("<div>");
+        var recipeSlideImg = $("<img>");
+        recipeSlideImg.attr("src", response.images[0].hostedLargeUrl);
+
+        recipeSlideImg.wrap("<a href='"+ response.attribution.url + "' </a>");
+        recipeSlide.append(recipeSlideImg);
+        $(idMatch[counter]).append(recipeSlide);
+        
+        counter++;
 
       });//end of inner ajax call
 
@@ -151,19 +155,6 @@ $('document').ready(function(){
 		console.log(dishesArray);
 		console.log(dishesImgUrls);
 		console.log(recipeUrls);
-		
-		for (k=0; k < 3; k++) {
-		
-		var recipeSlide = $("<div>");
-        var recipeSlideImg = $("<img>");
-        recipeSlideImg.attr("src", dishesImgUrls[k]);
-
-        // recipeSlideImg.wrap("<a href='"+ recipeUrls[k] + "' </a>");
-        recipeSlide.append(recipeSlideImg);
-        $("#recipe-displays").html(dishesImgUrls[k]);
-        console.log(dishesImgUrls[k]);
-        };	
-				
 			
 			});//end of ajax call 
 
