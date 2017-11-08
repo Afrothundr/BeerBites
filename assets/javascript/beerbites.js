@@ -191,6 +191,7 @@ $('document').ready(function(){
 			       	var styleHeader = $("<h3>");
 			       	var beerImg = $("<img>");
 			       	var glassHeader = $("<h3>");
+			       	var beerTempDisplay = $("<h3>");
 
 
 			    	  if (beerIndex.includes("name")) {
@@ -203,7 +204,7 @@ $('document').ready(function(){
 				            style = response.data[0].style.name;
 				            styleHeader.html(style);
 
-             				getFoodPairing();
+             				// getFoodPairing();
 
 				            styleHeader.addClass("beerinfo");
 
@@ -218,6 +219,10 @@ $('document').ready(function(){
 				        	    glassHeader.html(glassware[glassID - 1].name);
 				        	    glassHeader.addClass("beerinfo");
 			       				$("#glass-image").attr("src", glassware[glassID - 1].picture);
+				        	  } if (beerIndex.includes("servingTemperatureDisplay")) {
+				        	  	var beerTemp = "Served: " + response.data[0].servingTemperatureDisplay;
+				        	  	beerTempDisplay.html(beerTemp);
+				        	  	beerTempDisplay.addClass("beerinfo");
 				        	  };
 
 
@@ -226,7 +231,7 @@ $('document').ready(function(){
 
 			       	$("#beer-results").empty();
 			       	$("#beer-results").append(beerDiv);
-			       	$("#glass-results").prepend(glassHeader);
+			       	$("#glass-results").prepend(glassHeader, beerTempDisplay);
 			       //	Show Results page
 			       	$("#start-screen").css("display", "none");
 				    $("#results-screen").css("display", "block");
@@ -294,7 +299,12 @@ $('document').ready(function(){
 				        	    glassHeader.html(glassware[glassID - 1].name);
 				        	    glassHeader.addClass("beerinfo");
 			       				$("#glass-image").attr("src", glassware[glassID - 1].picture);
+				        	  } if (beerIndex.includes("servingTemperatureDisplay")) {
+				        	  	var beerTemp = "Served: " + response.data[0].servingTemperatureDisplay;
+				        	  	beerTempDisplay.html(beerTemp);
+				        	  	beerTempDisplay.addClass("beerinfo");
 				        	  };
+;
 			    
 			       	beerDiv.append(beerHeader, styleHeader, beerImg);
 
