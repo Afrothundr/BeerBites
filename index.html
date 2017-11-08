@@ -4,6 +4,7 @@
 	<title>Beer Bites</title>
 	<!-- Bootstrap File -->
 	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
 	 <!-- CSS -->
 	 <link rel="stylesheet" type="text/css" href="assets/css/style2.css">
 	 <script src="https://www.gstatic.com/firebasejs/4.6.1/firebase.js"></script>
@@ -12,7 +13,7 @@
 	 <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
 	 <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Roboto" rel="stylesheet">
 	 <link href="https://fonts.googleapis.com/css?family=Roboto:500" rel="stylesheet">
-
+	 <meta name="viewport" content="width=device-width">
 </head>
 <body>
 
@@ -109,28 +110,28 @@
       <div class="row">
 
         <!-- Your Beer Info -->
-        <div id="your-beer" class="col-sm-4">
+        <div id="your-beer" class="col-md-4">
           <!-- Section Header -->
             <div id class="titles" class="row">
               <h2>Your Beer</h2>
             </div>
 
             <div class="row">
-            	<div class="col-sm-12" id="beer-results">
+            	<div class="col-md-12" id="beer-results">
     
             	</div>
             </div>
         </div>
 
         <!--How to Drink  -->
-        <div id="how-to-drink" class="col-sm-4">
+        <div id="how-to-drink" class="col-md-4">
           <!-- Section Header -->
             <div class="titles" class="row">
               <h2>How To Drink</h2>
             </div>
 
             <div class="row">
-              <div class="col-sm-12" id="glass-results">
+              <div class="col-md-12" id="glass-results">
               <!-- info about how to drink will go here (image) -->
               <img id="glass-image">
             </div>
@@ -138,61 +139,45 @@
         </div>
 
         <!-- Food Results -->
-        <div id="food-results" class="col-sm-4">
+        <div id="food-results" class="col-md-4">
           <!-- Section Header -->
             <div class="titles" class="row">
               <h2>How To Pair</h2>
             </div>
 
-		
+		<!-- Recipe Links/sections -->
             <div class="row">
             		<section id="recipe-carousel">
-            			<div id="recipe-displays">
-            			</div>
-            			<!-- <div id="carousel" class="carousel slide" data-ride="carousel">
-				            <ol class="carousel-indicators">
-				                <li data-target="#carousel" data-slide-to="0"></li>
-				                <li data-target="#carousel" data-slide-to="1"></li>
-				                <li data-target="#carousel" data-slide-to="2"></li>
-				            </ol>
-				            <div class="carousel-inner recipe-displays">
-				                <div carousel-clear class="item active">
-				                	<p class="food-item">Food Item 1 Here</p>
-				                    <img src="assets/images/mug.png" alt="Slide 1" id="Slide 1">
-				                </div>
-				                <div class="item recipe-displays">
-				                	<p class="food-item">Food Item 2 Here</p>
-				                    <img src="assets/images/pint.png" alt="Slide 2" id="Slide 2">
-				                </div>
-				                <div class="item recipe-displays">
-				                	<p class="food-item">Food Item 3 Here</p>
-				                    <img src="assets/images/tulip.png" alt="Slide 3" id="Slide 3">
-				                </div>
-				            </div>
-				            <a  href="#carousel" class="left carousel-control" data-slide="prev">
-				                <span  class="glyphicon glyphicon-chevron-left"></span>
-				            </a>
-				            <a  href="#carousel" class="right carousel-control" data-slide="next">
-				                <span  class="glyphicon glyphicon-chevron-right"></span>
-				            </a>
-				        </div> -->
+            			<div class="list-group">
+						  <a id="border-1" href="#" class="list-group-item ">
+						    <h4 class="list-group-item-heading">Recipe Number 1</h4>
+						    <p class="list-group-item-text">...</p>
+						  </a>
+
+						  <a id="border-2" href="#" class="list-group-item ">
+						    <h4 class="list-group-item-heading">Recipe Number 2</h4>
+						    <p class="list-group-item-text">...</p>
+						  </a>
+
+						  <a id="border-3" href="#" class="list-group-item ">
+						    <h4 class="list-group-item-heading">Recipe Number 3</h4>
+						    <p class="list-group-item-text">...</p>
+						  </a>
+						</div>
 					</section>
-            	</div>
-              
+            	</div>            
             </div>
         </div>
       </div>
 
-
 <!-- Search again button -->
-      <section id="search-again-btn">
-
-		<div class="row">
-			<div class="col-sm-4"></div>
-			<div class="col-sm-4"><img src="assets/images/another-beer-btn.png"></div>
-			<div class="col-sm-4"></div>
-		</div>
-	</section>
+		<section id="search-again-btn">
+			<div class="row">
+				<div class="col-md-4"></div>
+				<div class="col-md-4"><img id="searchAgain" src="assets/images/another-beer-btn.png"></div>
+				<div class="col-md-4"></div>
+			</div>
+		</section>
     </section>
 
 	
@@ -203,6 +188,7 @@
 		
      <script src="assets/javascript/beerbites.js"></script>
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   
 
 </body>
 </html>
