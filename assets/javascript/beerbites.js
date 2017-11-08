@@ -7,8 +7,9 @@ $('document').ready(function(){
 	var glassID = "";
 	var callResults = [];
 	var beerIndex = [];
-  var dishesImgUrls = [];
-  var recipeUrls = [];
+	var dishesImgUrls = [];
+	var recipeUrls = [];
+    var searchFood = "";
 	//glassware object array
 	var glassware = [
 	{ id: '1',
@@ -99,7 +100,6 @@ $('document').ready(function(){
 
 	function getFoodPairing(){
     var dishesArray = [];
-    var searchFood;
     style = style.toLowerCase();
     console.log(style);
     
@@ -110,10 +110,8 @@ $('document').ready(function(){
       searchFood = snapshot.val()[style];
       console.log(searchFood);
 
-    });//end of database.ref()
-
-	var queryUrl = "https://api.yummly.com/v1/api/recipes?_app_id=7a03c2e6&_app_key=ee6cb6cfac34db8059806a0aeb1b2c42&q=" + searchFood;
-	console.log(queryUrl);
+      var queryUrl = "https://api.yummly.com/v1/api/recipes?_app_id=7a03c2e6&_app_key=ee6cb6cfac34db8059806a0aeb1b2c42&q=" + searchFood;
+		console.log(queryUrl);
 
 		$.ajax({
 				url: queryUrl,
@@ -125,42 +123,52 @@ $('document').ready(function(){
           dishesArray.push(response.matches[i].id); 
  //          // console.log("DISHES ARRAY: " + dishesArray[i]);
 
- //          // var dishesQueryUrl = "https://api.yummly.com/v1/api/recipe/" + dishesArray[i] + 
- //          // "?_app_id=7a03c2e6&_app_key=ee6cb6cfac34db8059806a0aeb1b2c42";
- //          // console.log("Recipe Img URL: " + dishesQueryUrl);
+          var dishesQueryUrl = "https://api.yummly.com/v1/api/recipe/" + dishesArray[i] + 
+          "?_app_id=7a03c2e6&_app_key=ee6cb6cfac34db8059806a0aeb1b2c42";
+          
+          console.log("Recipe Img URL: " + dishesQueryUrl);
 
-          dishesImgUrls.push(response.matches[i].images[0].hostedLargeUrl);
-          // console.log(response.images[0].hostedLargeUrl);
-          recipeUrls.push(response.attribution.url);
+          // dishesImgUrls.push(response.images[0].hostedLargeUrl);
+          // // console.log(response.images[0].hostedLargeUrl);
+          // recipeUrls.push(response.attribution.url);
 
- //    //       $.ajax({
- //    //     url: dishesQueryUrl,
- //    //     method: "GET"
- //    // }).done(function(response){
- //    //     // console.log(response);
- //    //     dishesImgUrls.push(response.images[0].hostedLargeUrl);
- //    //     // console.log("Image URL: " + dishesImgUrls[0]);
- //    //     console.log(response.images[0].hostedLargeUrl)
- //    //     recipeUrls.push(response.attribution.url);
- //    //     // console.log("Recipe URL: " + recipeUrls[0]);
- //    //  // $("div.recipe-displays div img").attr("src", dishesImgUrls[0]);
+          $.ajax({
+        url: dishesQueryUrl,
+        method: "GET"
+   		 }).done(function(response){
+        console.log(response);
+        dishesImgUrls.push(response.images[0].hostedLargeUrl);
+        // console.log("Image URL: " + dishesImgUrls[0]);
+        // console.log(response.images[0].hostedLargeUrl)
+        recipeUrls.push(response.attribution.url);
+        // console.log("Recipe URL: " + recipeUrls[0]);
+     // $("div.recipe-displays div img").attr("src", dishesImgUrls[0]);
 
- //    //   });//end of inner ajax call
+      });//end of inner ajax call
 
         }//end for
 		
 		console.log(dishesArray);
 		console.log(dishesImgUrls);
 		console.log(recipeUrls);
-	// 	// var recipeSlide = $("<div>");
- //  //       var recipeSlideImg = $("<img>");
- //  //       recipeSlideImg.attr("src", response.images[0].hostedLargeUrl);
- //  //       recipeSlideImg.wrap("<a href='"+ recipeUrls[0] + "' </a>");
- //  //       recipeSlide.append(recipeSlideImg);
- //  //       $("#recipe-displays").append(recipeSlide);	
+		
+		for (k=0; k < 3; k++) {
+		
+		var recipeSlide = $("<div>");
+        var recipeSlideImg = $("<img>");
+        recipeSlideImg.attr("src", dishesImgUrls[k]);
+
+        // recipeSlideImg.wrap("<a href='"+ recipeUrls[k] + "' </a>");
+        recipeSlide.append(recipeSlideImg);
+        $("#recipe-displays").html(dishesImgUrls[k]);
+        console.log(dishesImgUrls[k]);
+        };	
 				
 			
 			});//end of ajax call 
+
+    });//end of database.ref()
+	
 
 }//end of getFoodPairing()
 
@@ -204,7 +212,7 @@ $('document').ready(function(){
 				            style = response.data[0].style.name;
 				            styleHeader.html(style);
 
-             				// getFoodPairing();
+             				getFoodPairing();
 
 				            styleHeader.addClass("beerinfo");
 
