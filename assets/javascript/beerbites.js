@@ -107,6 +107,8 @@ $('document').ready(function(){
     
     console.log("Database reference: " + database.ref());
 
+    $(".recipe-contents").empty();
+
     database.ref().on('value', function(snapshot){          
   	  //get food pairing
       searchFood = snapshot.val()[style];
