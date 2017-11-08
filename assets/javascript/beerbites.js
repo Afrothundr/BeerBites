@@ -82,7 +82,7 @@ $('document').ready(function(){
 		searchBeer();
 	});
 
-	$("#search-again-btn").click(function(){
+	$("#searchAgain").click(function(){
 		$("#start-screen").css("display", "block");
 		$("#results-screen").css("display", "none");
 		$("input[type=text], textarea").val("");
