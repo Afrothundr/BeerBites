@@ -206,6 +206,13 @@ $('document').ready(function(){
 					    } if (beerIndex.includes("style")) {
 					    	//Get Style and add to header
 				            style = response.data[0].style.name;
+
+                    if(style.includes("/")){
+                      var position = style.indexOf("/");
+                      style = style.substring(0,position);
+                      console.log("style with no /: " + style);
+                    }//end of if
+
 				            styleHeader.html(style);
 
              				getFoodPairing();
@@ -329,6 +336,4 @@ $('document').ready(function(){
 				};
 	        });
 	});
-});
-
-
+});//end $('document').ready
