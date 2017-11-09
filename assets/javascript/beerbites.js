@@ -12,6 +12,7 @@ $('document').ready(function(){
     var searchFood = "";
     var idMatch = ["#recipe-1", "#recipe-2", "#recipe-3"];
     var titleMatch =["#title-1", "#title-2", "#title-3"];
+    var linkMatch = ["#border-1", "#border-2", "#border-3"];
 	//glassware object array
 	var glassware = [
 	{ id: '1',
@@ -144,10 +145,10 @@ $('document').ready(function(){
         var recipeSlideImg = $("<img>");
         recipeSlideImg.attr("src", response.images[0].hostedLargeUrl);
         console.log(response.attribution.url);
-        recipeSlideImg.wrap('<a href="' + response.attribution.url + '">');
         recipeSlide.append(recipeSlideImg);
         $(idMatch[counter]).append(recipeSlide);
         $(titleMatch[counter]).html(response.name);
+        $(linkMatch[counter]).attr("href", response.attribution.url);
         
         counter++;
 
