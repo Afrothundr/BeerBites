@@ -131,7 +131,7 @@ $('document').ready(function(){
         console.log(response.data);
         dishesImgUrls.push(response.images[0].hostedLargeUrl);
         console.log("Image URL: " + dishesImgUrls[0]);
-        
+
         recipeUrls.push(response.attribution.url);
         console.log("Recipe URL: " + recipeUrls[0]);
 
@@ -151,7 +151,7 @@ $('document').ready(function(){
 
 	function searchBeer() {
 	        event.preventDefault();
-          style = "american light lager";
+          //style = "american light lager";
 	        var beer = $("#form1").val().trim();
 	        var queryURL = proxy + "https://api.brewerydb.com/v2/search?q=" + beer + "&type=beer&key=0191c57ff93f0b5868e91f7e67f611e7&format=json";
 
