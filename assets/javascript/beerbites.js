@@ -274,6 +274,7 @@ $('document').ready(function(){
 			          console.log(style);
 				} else {
 			      //Alert user to pick another beer
+					$("#form1").prop("disabled", false);
 					console.log("not a beer...");
 					$("#main").html("Try Picking Another Beer");
 
