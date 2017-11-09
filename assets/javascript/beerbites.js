@@ -69,7 +69,6 @@ $('document').ready(function(){
 
 	];//end of glassware object  
 
-	];
 
 // recipe next button
 	var nextCounter = 1
@@ -116,12 +115,12 @@ $('document').ready(function(){
 		$("#results-screen").css("display", "none");
 		$("input[type=text], textarea").val("");
 		$(".beerinfo").remove();
+    $(".beerbtn").removeAttr("disabled");
+    $("#form1").prop("disabled", false);$(".beerbtn").removeAttr("disabled");
+    $("#form1").prop("disabled", false);
 
 	});//end of event
 
-		$(".beerbtn").removeAttr("disabled");
-		$("#form1").prop("disabled", false);
-	})
 
 
 	//Add enter button submit capabilities
@@ -287,7 +286,8 @@ $('document').ready(function(){
 			
       //If it is not a valid beer
       } else {
-			 //Alert user to pick another beer					
+			 //Alert user to pick another beer	
+        $("#form1").prop("disabled",false);			
 				$("#main").html("Try Picking Another Beer");
 
 	    };//end of else statement
