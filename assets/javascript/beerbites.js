@@ -67,7 +67,23 @@ $('document').ready(function(){
 		},
 	];
 
-  
+// recipe next button
+	var nextCounter = 1
+	var activeRecipe = "border-" + nextCounter
+	$("#next-button").click(function(){
+		if(nextCounter < 3){
+		$("#border-" + nextCounter).css("display", "none");
+		nextCounter++;
+		$("#border-" + nextCounter).css("display", "block");
+		}
+
+		else if( nextCounter === 3){
+			$("#border-1").css("display", "block");
+			$("#border-2").css("display", "none");
+			$("#border-3").css("display", "none");
+			nextCounter = 1;
+		}
+	})
 
   // Initialize Firebase
   var config = {
