@@ -1,6 +1,6 @@
 
 $('document').ready(function(){
-	var proxy = "https://cors-anywhere.herokuapp.com/"
+	var proxy = "https://arcane-lake-48943.herokuapp.com/"
 	var beerResult = null;
 	var style = "";
 	var label = "";
