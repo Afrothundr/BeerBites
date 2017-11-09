@@ -289,6 +289,9 @@ $('document').ready(function(){
 					    } if (beerIndex.includes("style")) {
 					    	//Get Style and add to header
 				            style = response.data[0].style.name;
+				            
+				            getFoodPairing();
+
 				            styleHeader.html(style);
 				            styleHeader.addClass("beerinfo");
 				           } if (beerIndex.includes("labels")) {
