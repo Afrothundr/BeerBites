@@ -112,6 +112,11 @@ p {
 #search-again-btn{
 	margin-top: 50px;
 	text-align: center;
+	
+}
+
+#searchAgain{
+	cursor: pointer;
 }
 
 .beerimg{
@@ -140,6 +145,17 @@ p {
 }
 
 
+#border-1, #border-2, #border-3{
+	border: none;
+	align-items: center;
+	padding-top: 25px;
+	font-family: 'Open Sans Condensed', sans-serif;
+	text-align: center;
+	font-size: 25px;
+}
+
 @keyframes beerSlide {
     from   {transform: translateY(1000px)}
     to {transform: translateY(0px)}
+
+

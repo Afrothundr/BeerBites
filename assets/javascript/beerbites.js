@@ -7,8 +7,12 @@ $('document').ready(function(){
 	var glassID = "";
 	var callResults = [];
 	var beerIndex = [];
-  var dishesImgUrls = [];
-  var recipeUrls = [];
+	var dishesImgUrls = [];
+	var recipeUrls = [];
+    var searchFood = "";
+    var idMatch = ["#recipe-1", "#recipe-2", "#recipe-3"];
+    var titleMatch =["#title-1", "#title-2", "#title-3"];
+    var linkMatch = ["#border-1", "#border-2", "#border-3"];
 	//glassware object array
 	var glassware = [
 	{ id: '1',
@@ -82,7 +86,7 @@ $('document').ready(function(){
 		searchBeer();
 	});
 
-	$("#search-again-btn").click(function(){
+	$("#searchAgain").click(function(){
 		$("#start-screen").css("display", "block");
 		$("#results-screen").css("display", "none");
 		$("input[type=text], textarea").val("");
@@ -97,56 +101,72 @@ $('document').ready(function(){
     });
 
 
-
-
 	function getFoodPairing(){
     var dishesArray = [];
-    var searchFood;
-    var dbRef = database.ref();
-    console.log("Database reference: " + dbRef);
+    style = style.toLowerCase();
+    console.log(style);
+    
+    console.log("Database reference: " + database.ref());
 
-    dbRef.on('value', function(snapshot){          
-      searchFood = snapshot.child(style.toLowerCase()).val();
-      console.log("childStyle: " + snapshot.child(style.toLowerCase()).val()); 
-    });//end of database.ref()
+    $(".recipe-contents").empty();
 
-	var queryUrl = "https://api.yummly.com/v1/api/recipes?_app_id=7a03c2e6&_app_key=ee6cb6cfac34db8059806a0aeb1b2c42&q=" 
-			+ searchFood;
+    database.ref().on('value', function(snapshot){          
+  	  //get food pairing
+      searchFood = snapshot.val()[style];
+      console.log(searchFood);
 
+      var queryUrl = "https://api.yummly.com/v1/api/recipes?_app_id=7a03c2e6&_app_key=ee6cb6cfac34db8059806a0aeb1b2c42&q=" + searchFood;
+		console.log(queryUrl);
+
+	  var counter = 0;
 		$.ajax({
 				url: queryUrl,
 				method: "GET"
 		}).done(function(response){
+
+		console.log(response.matches);
         for (var i = 0; i < 3; i++){
-          dishesArray.push(response.matches[i].id);
-          console.log("DISHES ARRAY: " + dishesArray[i]);
+          dishesArray.push(response.matches[i].id); 
 
           var dishesQueryUrl = "https://api.yummly.com/v1/api/recipe/" + dishesArray[i] + 
           "?_app_id=7a03c2e6&_app_key=ee6cb6cfac34db8059806a0aeb1b2c42";
+          
           console.log("Recipe Img URL: " + dishesQueryUrl);
+
           $.ajax({
         url: dishesQueryUrl,
         method: "GET"
-    }).done(function(response){
-        console.log(response.data);
+   		 }).done(function(response){
+        console.log(response);
         dishesImgUrls.push(response.images[0].hostedLargeUrl);
-        console.log("Image URL: " + dishesImgUrls[0]);
 
         recipeUrls.push(response.attribution.url);
-        console.log("Recipe URL: " + recipeUrls[0]);
+		
+     	var recipeSlide = $("<div>");
+        var recipeSlideImg = $("<img>");
+        recipeSlideImg.attr("src", response.images[0].hostedLargeUrl);
+        console.log(response.attribution.url);
+        recipeSlide.append(recipeSlideImg);
+        $(idMatch[counter]).append(recipeSlide);
+        $(titleMatch[counter]).html(response.name);
+        $(linkMatch[counter]).attr("href", response.attribution.url);
+        
+        counter++;
 
       });//end of inner ajax call
 
         }//end for
-				
-				
+		
+		console.log(dishesArray);
+		console.log(dishesImgUrls);
+		console.log(recipeUrls);
 			
 			});//end of ajax call 
 
-	}//end of getFoodPairing()
+    });//end of database.ref()
+	
 
-	 //getFoodPairing();
-
+}//end of getFoodPairing()
 
 
 	function searchBeer() {
@@ -175,6 +195,7 @@ $('document').ready(function(){
 			       	var styleHeader = $("<h3>");
 			       	var beerImg = $("<img>");
 			       	var glassHeader = $("<h3>");
+			       	var beerTempDisplay = $("<h3>");
 
 
 			    	  if (beerIndex.includes("name")) {
@@ -184,10 +205,10 @@ $('document').ready(function(){
 					    beerHeader.addClass("beerinfo");
 					    } if (beerIndex.includes("style")) {
 					    	//Get Style and add to header
-				            style = response.data[0].style.shortName;
+				            style = response.data[0].style.name;
 				            styleHeader.html(style);
 
-                    getFoodPairing();
+             				getFoodPairing();
 
 				            styleHeader.addClass("beerinfo");
 
@@ -202,6 +223,10 @@ $('document').ready(function(){
 				        	    glassHeader.html(glassware[glassID - 1].name);
 				        	    glassHeader.addClass("beerinfo");
 			       				$("#glass-image").attr("src", glassware[glassID - 1].picture);
+				        	  } if (beerIndex.includes("servingTemperatureDisplay")) {
+				        	  	var beerTemp = "Served: " + response.data[0].servingTemperatureDisplay;
+				        	  	beerTempDisplay.html(beerTemp);
+				        	  	beerTempDisplay.addClass("beerinfo");
 				        	  };
 
 
@@ -210,8 +235,7 @@ $('document').ready(function(){
 
 			       	$("#beer-results").empty();
 			       	$("#beer-results").append(beerDiv);
-			       	$("#glass-results").prepend(glassHeader);
-             // getFoodPairing();
+			       	$("#glass-results").prepend(glassHeader, beerTempDisplay);
 			       //	Show Results page
 			       	$("#start-screen").css("display", "none");
 				    $("#results-screen").css("display", "block");
@@ -227,6 +251,7 @@ $('document').ready(function(){
 	        	};
 	        });
 	}
+			//preselected beer button click
 		 $(".beerbtn").on("click", function searchbeerBtn() {
 	        event.preventDefault();       
 	        var beer = $(this).text().trim();
@@ -247,14 +272,16 @@ $('document').ready(function(){
 			    if (callResults.length > 2) {
 			    	beerIndex = Object.keys(response.data[0]);
 			    	console.log(beerIndex);
-			    	// append results to page
+				    console.log(response.data[0].abv);
+			    	// declare html variables
 			        var beerDiv = $("<div>");
 			       	var beerHeader = $("<h3>");
 			       	var styleHeader = $("<h3>");
 			       	var beerImg = $("<img>");
 			       	var glassHeader = $("<h3>");
+			       	var beerTempDisplay = $("<h3>");
 
-		
+
 			    	  if (beerIndex.includes("name")) {
 			    	  	//Get Beer Name and add it to Header
 					    beerResult = response.data[0].name;
@@ -262,7 +289,10 @@ $('document').ready(function(){
 					    beerHeader.addClass("beerinfo");
 					    } if (beerIndex.includes("style")) {
 					    	//Get Style and add to header
-				            style = response.data[0].style.shortName;
+				            style = response.data[0].style.name;
+				            
+				            getFoodPairing();
+
 				            styleHeader.html(style);
 				            styleHeader.addClass("beerinfo");
 				           } if (beerIndex.includes("labels")) {
@@ -276,13 +306,18 @@ $('document').ready(function(){
 				        	    glassHeader.html(glassware[glassID - 1].name);
 				        	    glassHeader.addClass("beerinfo");
 			       				$("#glass-image").attr("src", glassware[glassID - 1].picture);
+				        	  } if (beerIndex.includes("servingTemperatureDisplay")) {
+				        	  	var beerTemp = "Served: " + response.data[0].servingTemperatureDisplay;
+				        	  	beerTempDisplay.html(beerTemp);
+				        	  	beerTempDisplay.addClass("beerinfo");
 				        	  };
+;
 			    
 			       	beerDiv.append(beerHeader, styleHeader, beerImg);
 
 			       	$("#beer-results").empty();
 			       	$("#beer-results").append(beerDiv);
-			       	$("#glass-results").prepend(glassHeader);
+			       	$("#glass-results").prepend(glassHeader, beerTempDisplay);
 
 			       	//Show Results page
 			       	$("#start-screen").css("display", "none");
