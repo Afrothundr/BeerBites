@@ -154,6 +154,18 @@ p {
 	font-size: 25px;
 }
 
+#next-button{
+	cursor: pointer;
+}
+
+#border-2{
+	display: none;
+}
+
+#border-3{
+	display: none;
+}
+
 @keyframes beerSlide {
     from   {transform: translateY(1000px)}
     to {transform: translateY(0px)}
