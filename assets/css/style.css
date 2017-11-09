@@ -16,3 +16,14 @@
 	width: 250px;
 }
 
+
+.search-box{
+    padding: 12px 20px;
+    margin: 8px 0;
+    height: 50px;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 2px solid white;
+    outline: none;
+    font-size: 40px;
+}

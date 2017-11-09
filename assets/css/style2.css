@@ -21,6 +21,7 @@
 	color: #808080;
 	text-transform: capitalize;
 	font-family: 'Roboto', sans-serif;
+	width: 100%;
 }
 .btn-primary {
 	background-color: white;
@@ -84,7 +85,6 @@ p {
 
 #your-beer{
 	height: 200px;
-	background-image: url("coaster.jpg");
 	animation-name: beerSlide;
     animation-duration: 1s;
     animation-iteration-count: 1;
@@ -154,8 +154,24 @@ p {
 	font-size: 25px;
 }
 
+#next-button{
+	cursor: pointer;
+}
+
+#border-2{
+	display: none;
+}
+
+#border-3{
+	display: none;
+}
+
 @keyframes beerSlide {
     from   {transform: translateY(1000px)}
     to {transform: translateY(0px)}
+
+.glyphicon-chevron-right:before {
+	font-size: 250%;
+}
 
 

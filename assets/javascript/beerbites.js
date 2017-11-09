@@ -1,7 +1,7 @@
 
 $('document').ready(function(){
-  //variable assignments
-	var proxy = "https://cors-anywhere.herokuapp.com/"
+
+	var proxy = "https://arcane-lake-48943.herokuapp.com/"
 	var beerResult = null;
 	var style = "";
 	var label = "";
@@ -66,7 +66,29 @@ $('document').ready(function(){
 	  name: "Thistle",
 	  picture: "assets/images/thistle.png"
 		},
+
 	];//end of glassware object  
+
+	];
+
+// recipe next button
+	var nextCounter = 1
+	var activeRecipe = "border-" + nextCounter
+	$("#next-button").click(function(){
+		if(nextCounter < 3){
+		$("#border-" + nextCounter).css("display", "none");
+		nextCounter++;
+		$("#border-" + nextCounter).css("display", "block");
+		}
+
+		else if( nextCounter === 3){
+			$("#border-1").css("display", "block");
+			$("#border-2").css("display", "none");
+			$("#border-3").css("display", "none");
+			nextCounter = 1;
+		}
+	})
+
 
   // Initialize Firebase
   var config = {
@@ -84,6 +106,7 @@ $('document').ready(function(){
 
   //Click event for search button
 	$("#searchpic").click(function(){
+		$("#form1").prop("disabled", true);
 		searchBeer();
 	});//end of event
 
@@ -93,12 +116,19 @@ $('document').ready(function(){
 		$("#results-screen").css("display", "none");
 		$("input[type=text], textarea").val("");
 		$(".beerinfo").remove();
+
 	});//end of event
+
+		$(".beerbtn").removeAttr("disabled");
+		$("#form1").prop("disabled", false);
+	})
+
 
 	//Add enter button submit capabilities
 	$(document).keypress(function(e) {
 		 if(e.which == 13 && $("#form1").val().trim() !== ""){//Enter key pressed
-            $('#searchpic').click();//Trigger search button click event
+            $("#form1").prop("disabled", true);
+            searchBeer();//Trigger search button click event
         }
   });//end of event
 
@@ -268,7 +298,8 @@ $('document').ready(function(){
 	$(".beerbtn").on("click", function searchbeerBtn() {
 	
     event.preventDefault();       
-	  
+	  $(".beerbtn").attr("disabled", "disabled");
+    
     var beer = $(this).text().trim();
 	  var queryURL = proxy + "https://api.brewerydb.com/v2/search?q=" + 
       beer + "&type=beer&key=0191c57ff93f0b5868e91f7e67f611e7&format=json";
