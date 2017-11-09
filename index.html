@@ -1,202 +1,184 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Beer Bites</title>
-	<link rel="shortcut icon" href="favicon.png">
-	<!-- Bootstrap File -->
-	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-	 <!-- CSS -->
-	 <link rel="stylesheet" type="text/css" href="assets/css/style2.css">
-	 <script src="https://www.gstatic.com/firebasejs/4.6.1/firebase.js"></script>
+	<head>
+		<title>Beer Bites</title>
+		<!-- Bootstrap File -->
+		 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-	<!-- font links -->
-	 <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
-	 <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Roboto" rel="stylesheet">
-	 <link href="https://fonts.googleapis.com/css?family=Roboto:500" rel="stylesheet">
-	 <meta name="viewport" content="width=device-width">
+		 <!-- CSS -->
+		 <link rel="stylesheet" type="text/css" href="assets/css/style2.css">
+		 <script src="https://www.gstatic.com/firebasejs/4.6.1/firebase.js"></script>
 
-</head>
-<body>
+		<!-- font links -->
+		 <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+		 <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Roboto" rel="stylesheet">
+		 <link href="https://fonts.googleapis.com/css?family=Roboto:500" rel="stylesheet">
+		 <meta name="viewport" content="width=device-width">
+	</head>
+	<body>		
+		<section class="container-body">
+	    	<section id="header-banner">
+		      <div class="jumbotron jumbotron-fluid" id="jumbotron">
+		        <div class="container"></div>
+		      </div>
+	    	</section>
+	  	</section>
+		<section id="start-screen">
+			<div class="row">
+				<h2 id="main">What are you drinking?</h2>
+			</div>
+			<div class="row">
 
-	
-	<section class="container-body">
-    	<section id="header-banner">
-	      <div class="jumbotron jumbotron-fluid" id="jumbotron">
-	        <div class="container">
-	        </div>
-	      </div>
-    	</section>
-  	</section>
-
-<section id="start-screen">
-<div class="row">
-		    <h2 id="main">What are you drinking?</h2>
-		  </div>
-		    <div class="row">
 			    <div class="col-md-3"></div>
 			    <div class="col-md-6">
 			    	<div class="md-form">
-    					<input type="text" id="form1" class="form-control" autofocus="autofocus">
-    					<label for="form1" class="search-box"></label>
+		    			<input type="text" id="form1" class="form-control" autofocus="autofocus">
+		    			<label for="form1" class="search-box"></label>
 					</div>
-			     <div class="col-md-3"></div>
-			    </div>
+			    <div class="col-md-3"></div>
+			</div>
+			</div>
+			  	<div class="row">
+					<div class="col-md-4"></div>
+					<div class="col-md-4">
+	  				<img src="assets/images/search-btn.png" id="searchpic">
+	      		</div>
+	      		<div class="col-md-4"></div>
 		  	</div>
-		  	<div class="row">
-		  		<div class="col-md-4"></div>
-		  		<div class="col-md-4">
+
+			<br>
+			<br>
+			<div class="row">
+			  	<p>No Beer? Here's What We Recommend.</p>
+			</div>
+			<div class="col-md-3"></div>
+			<div class="col-md-6">
+				<div class="row" id="results">
+					<div class="col-md-4">
+						<h3>Feeling a Stout?</h3>
+						<button class="btn btn-primary beerbtn">
+						<span>Dark Truth Stout</span></button>
+						<br>
+						<br>
+						<button class="btn btn-primary beerbtn"><span>Obsidian Stout</span></button>
+						<br>
+						<br>
+						<button class="btn btn-primary beerbtn"><span>Sierra Nevada Stout</span></button>
+					</div>
+					<div class="col-md-4">
+						  		<h3>Feeling a Lager?</h3>
+						  		<button class="btn btn-primary beerbtn">
+						      		<span>Hoponius Union</span></button>
+						      	<br>
+						      	<br>
+						      	<button class="btn btn-primary beerbtn">
+						      		<span>1554</span></button>
+						      	<br>
+						      	<br>
+						      	<button class="btn btn-primary beerbtn">
+						      		<span>Lagunitas Pils</span></button>
+					</div>
+					<div class="col-md-4">
+						<h3>Feeling an IPA?</h3>
+						<button class="btn btn-primary beerbtn"><span>Surly Furious</span></button>
+						<br>
+						<br>
+						<button class="btn btn-primary beerbtn"><span>Elevated IPA</span></button>
+						<br>
+						<br>
+						<button class="btn btn-primary beerbtn"><span>O'Dell IPA</span></button>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3"></div>
+		</section>
+
+		  
+
+	<!-- results page -->
+		<section id="results-screen">
+	      <div class="row">
+	        <!-- Your Beer Info -->
+	        <div id="your-beer" class="col-md-4">
+	          	<!-- Section Header -->
+	            <div id class="titles" class="row">
+	            	<h2>Your Beer</h2>
+	            </div>
+	            <div class="row">
+	            	<div class="col-md-12" id="beer-results"></div>
+	            </div>
+	        </div>
+
+	        <!--How to Drink  -->
+	        <div id="how-to-drink" class="col-md-4">
+	          	<!-- Section Header -->
+	            <div class="titles" class="row">
+	            	<h2>How To Drink</h2>
+	            </div>
+	            <div class="row">
+	            	<div class="col-md-12" id="glass-results">
+	            		<!-- info about how to drink will go here (image) -->
+	            		<img id="glass-image">
+	            	</div>
+	            </div>
+	        </div>
 
 
-		  			<img src="assets/images/search-btn.png" id="searchpic">
+	        <!-- Food Results -->
+	        <div id="food-results" class="col-md-4">
+	        	<!-- Section Header -->
+	            <div class="titles" class="row">
+	            	<h2>How To Pair</h2>
+	            </div>
 
+				<!-- Recipe Links/sections -->
+	            <div class="row">
+	            	<div class="col-md-10">
+	            		<div id="recipe-displays"></div>
+	            		<section id="recipe-section">
+	            			<div class="list-group">
+								<a id="border-1" href="#" class="list-group-item" target="_blank">
+							    	<h4 class="list-group-item-heading" id="title-1">Recipe Number 1</h4>
+							    	<div class="recipe-contents" id="recipe-1"></div>
+							  	</a>
+							  	<a id="border-2" href="#" class="list-group-item" target="_blank">
+							    	<h4 class="list-group-item-heading" id="title-2">Recipe Number 2</h4>
+							    	<div class="recipe-contents" id="recipe-2"></div>
+							  	</a>
+							  	<a id="border-3" href="#" class="list-group-item" target="_blank">
+							    	<h4 class="list-group-item-heading" id="title-3">Recipe Number 3</h4>
+							    	<div class="recipe-contents" id="recipe-3"></div>
+							  	</a>
+							</div>
 
-		      	</div>
-		      	<div class="col-md-4"></div>
-		  	</div>
-		  	<br>
-		  	<br>
-		  <div class="row">
-		  	<p>No Beer? Here's What We Recommend.</p>
-		  </div>
-		  <div class="col-md-3"></div>
-		  <div class="col-md-6">
-		  <div class="row" id="results">
-		  	<div class="col-md-4">
-		  		<h3>Feeling a Stout?</h3>
-		  		<button class="btn btn-primary beerbtn">
-		      		<span>Dark Truth Stout</span></button>
-		      		<br>
-		      		<br>
-		      	<button class="btn btn-primary beerbtn">
-		      		<span>Obsidian Stout</span></button>
-		      		<br>
-		      		<br>
-		      	<button class="btn btn-primary beerbtn">
-		      		<span>Sierra Nevada Stout</span></button>
-		  	</div>
-		  	<div class="col-md-4">
-		  		<h3>Feeling a Lager?</h3>
-		  		<button class="btn btn-primary beerbtn">
-		      		<span>Hoponius Union</span></button>
-		      	<br>
-		      	<br>
-		      	<button class="btn btn-primary beerbtn">
-		      		<span>1554</span></button>
-		      	<br>
-		      	<br>
-		      	<button class="btn btn-primary beerbtn">
-		      		<span>Lagunitas Pils</span></button>
-		  	</div>
-		  	<div class="col-md-4">
-		  		<h3>Feeling an IPA?</h3>
-		  		<button class="btn btn-primary beerbtn">
-		      		<span>Surly Furious</span></button>
-		      	<br>
-		      	<br>
-		      	<button class="btn btn-primary beerbtn">
-		      		<span>Elevated IPA</span></button>
-		      	<br>
-		      	<br>
-		      	<button class="btn btn-primary beerbtn">
-		      		<span>O'Dell IPA</span></button>
-		  	</div>
-		  </div>
-		</div>
-		<div class="col-md-3"></div>
-</section>
-
-
-<!-- results page -->
-	<section id="results-screen">
-      <div class="row">
-
-        <!-- Your Beer Info -->
-        <div id="your-beer" class="col-md-4">
-          <!-- Section Header -->
-            <div id class="titles" class="row">
-              <h2>Your Beer</h2>
-            </div>
-
-            <div class="row">
-            	<div class="col-md-12" id="beer-results">
-    
-            	</div>
-            </div>
-        </div>
-        <br>
-
-        <!--How to Drink  -->
-        <div id="how-to-drink" class="col-md-4">
-          <!-- Section Header -->
-            <div class="titles" class="row">
-              <h2>How To Drink</h2>
-            </div>
-
-            <div class="row">
-              <div class="col-md-12" id="glass-results">
-              <!-- info about how to drink will go here (image) -->
-              <img id="glass-image">
-            </div>
-            </div>
-        </div>
-
-        <!-- Food Results -->
-        <div id="food-results" class="col-md-4">
-          <!-- Section Header -->
-            <div class="titles" class="row">
-              <h2>How To Pair</h2>
-            </div>
-
-		<!-- Recipe Links/sections -->
-            <div class="row">
-            		<div id="recipe-displays">
-            		</div>
-            		<section id="recipe-section">
-            			<div class="list-group">
-						  <a id="border-1" href="#" class="list-group-item ">
-						    <h4 class="list-group-item-heading" id="title-1">Recipe Number 1</h4>
-						    <div class="recipe-contents" id="recipe-1"></div>
-						  </a>
-						  <a id="border-2" href="#" class="list-group-item ">
-						    <h4 class="list-group-item-heading" id="title-2">Recipe Number 2</h4>
-						    <div class="recipe-contents" id="recipe-2"></div>
-						  </a>
-						  <a id="border-3" href="#" class="list-group-item ">
-						    <h4 class="list-group-item-heading" id="title-3">Recipe Number 3</h4>
-						    <div class="recipe-contents" id="recipe-3"></div>
-						  </a>
 						</div>
-				</div>
 
-					<div id="next-button" class="glyphicon glyphicon-chevron-right"></div>
-					
-				</div>
+
+						<div class="col-md-2">
+							<div class="glyphicon glyphicon-chevron-right"></div>
+						</div>
+
 					</section>
-            	</div>            
-            </div>
-        </div>
-      </div>
+	            	</div>            
+	            </div>
+	        </div>
+	      </div>
 
-<!-- Search again button -->
+	<!-- Search again button -->
 		<section id="search-again-btn">
 			<div class="row">
 				<div class="col-md-4"></div>
 				<div class="col-md-4"><img id="searchAgain" src="assets/images/another-beer-btn.png"></div>
 				<div class="col-md-4"></div>
-			</div>
-		</section>
-    </section>
+				</div>
+			</section>
+	    </section>
 
-	
-
-
-	  <!-- JQuery -->
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- JQuery -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		
-     <script src="assets/javascript/beerbites.js"></script>
-     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-   
-
-</body>
+		<script src="assets/javascript/beerbites.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</body>
 </html>

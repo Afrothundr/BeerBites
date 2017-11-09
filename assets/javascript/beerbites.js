@@ -1,5 +1,6 @@
 
 $('document').ready(function(){
+
 	var proxy = "https://arcane-lake-48943.herokuapp.com/"
 	var beerResult = null;
 	var style = "";
@@ -9,10 +10,10 @@ $('document').ready(function(){
 	var beerIndex = [];
 	var dishesImgUrls = [];
 	var recipeUrls = [];
-    var searchFood = "";
-    var idMatch = ["#recipe-1", "#recipe-2", "#recipe-3"];
-    var titleMatch =["#title-1", "#title-2", "#title-3"];
-    var linkMatch = ["#border-1", "#border-2", "#border-3"];
+  var searchFood = "";
+  var idMatch = ["#recipe-1", "#recipe-2", "#recipe-3"];
+  var titleMatch =["#title-1", "#title-2", "#title-3"];
+  var linkMatch = ["#border-1", "#border-2", "#border-3"];
 	//glassware object array
 	var glassware = [
 	{ id: '1',
@@ -65,6 +66,9 @@ $('document').ready(function(){
 	  name: "Thistle",
 	  picture: "assets/images/thistle.png"
 		},
+
+	];//end of glassware object  
+
 	];
 
 // recipe next button
@@ -85,6 +89,7 @@ $('document').ready(function(){
 		}
 	})
 
+
   // Initialize Firebase
   var config = {
     apiKey: "AIzaSyA1q-yWVD1cjH64Kqtcy1glm0mLxnij9lE",
@@ -93,271 +98,295 @@ $('document').ready(function(){
     projectId: "beerdb-d39e4",
     storageBucket: "beerdb-d39e4.appspot.com",
     messagingSenderId: "455037721802"
-  };
+  };//end of database config
   firebase.initializeApp(config);
 
+  //Reference to database
   var database = firebase.database();
 
+  //Click event for search button
 	$("#searchpic").click(function(){
 		$("#form1").prop("disabled", true);
 		searchBeer();
-	});
+	});//end of event
 
+  //Click event for Search Another Beer button
 	$("#searchAgain").click(function(){
 		$("#start-screen").css("display", "block");
 		$("#results-screen").css("display", "none");
 		$("input[type=text], textarea").val("");
 		$(".beerinfo").remove();
+
+	});//end of event
+
 		$(".beerbtn").removeAttr("disabled");
 		$("#form1").prop("disabled", false);
 	})
 
-	// add enter button submit capabilities
+
+	//Add enter button submit capabilities
 	$(document).keypress(function(e) {
 		 if(e.which == 13 && $("#form1").val().trim() !== ""){//Enter key pressed
             $("#form1").prop("disabled", true);
             searchBeer();//Trigger search button click event
         }
-    });
+  });//end of event
 
-
+  /*getFoodPairing(): Queries the firebase database to get the recipe search string
+  //based on the beer style received from the searchBeer() call.  Then it makes two ajax calls 
+  //to the yummly API to retrieve recipes information.*/
 	function getFoodPairing(){
+    
     var dishesArray = [];
     style = style.toLowerCase();
-    console.log(style);
-    
-    console.log("Database reference: " + database.ref());
-
     $(".recipe-contents").empty();
 
-    database.ref().on('value', function(snapshot){          
-  	  //get food pairing
+    database.ref().on('value', function(snapshot){
+
+      var counter = 0;
       searchFood = snapshot.val()[style];
-      console.log(searchFood);
+      var queryUrl = "https://api.yummly.com/v1/api/recipes?_app_id=7a03c2e6&_app_key=ee6cb6cfac34db8059806a0aeb1b2c42&q="
+       + searchFood;
+	    
+      /*First ajax call to the Yummly API to get the dishes id required to get the 
+      //detailed information for the recipes*/  
+  		$.ajax({
+  				url: queryUrl,
+  				method: "GET"
+  		}).done(function(response){
 
-      var queryUrl = "https://api.yummly.com/v1/api/recipes?_app_id=7a03c2e6&_app_key=ee6cb6cfac34db8059806a0aeb1b2c42&q=" + searchFood;
-		console.log(queryUrl);
-
-	  var counter = 0;
-		$.ajax({
-				url: queryUrl,
-				method: "GET"
-		}).done(function(response){
-
-		console.log(response.matches);
+        /*Gets the id for the first three recipes.  Makes second call to API to get the
+        //the image url and recipes' urls.  Dynamically displays the information*/
         for (var i = 0; i < 3; i++){
-          dishesArray.push(response.matches[i].id); 
 
+          dishesArray.push(response.matches[i].id); 
           var dishesQueryUrl = "https://api.yummly.com/v1/api/recipe/" + dishesArray[i] + 
           "?_app_id=7a03c2e6&_app_key=ee6cb6cfac34db8059806a0aeb1b2c42";
-          
-          console.log("Recipe Img URL: " + dishesQueryUrl);
+
 
           $.ajax({
-        url: dishesQueryUrl,
-        method: "GET"
-   		 }).done(function(response){
-        console.log(response);
-        dishesImgUrls.push(response.images[0].hostedLargeUrl);
-
-        recipeUrls.push(response.attribution.url);
-		
-     	var recipeSlide = $("<div>");
-        var recipeSlideImg = $("<img>");
-        recipeSlideImg.attr("src", response.images[0].hostedLargeUrl);
-        console.log(response.attribution.url);
-        recipeSlide.append(recipeSlideImg);
-        $(idMatch[counter]).append(recipeSlide);
-        $(titleMatch[counter]).html(response.name);
-        $(linkMatch[counter]).attr("href", response.attribution.url);
+            url: dishesQueryUrl,
+            method: "GET"
+   		    }).done(function(response){
         
-        counter++;
+            dishesImgUrls.push(response.images[0].hostedLargeUrl);
+            recipeUrls.push(response.attribution.url);
+		        
+            //Append recipes results to page
+     	      var recipeSlide = $("<div>");
+            var recipeSlideImg = $("<img>");
+            
+            recipeSlideImg.attr("src", response.images[0].hostedLargeUrl);        
+            recipeSlide.append(recipeSlideImg);
+            
+            $(idMatch[counter]).append(recipeSlide);
+            $(titleMatch[counter]).html(response.name);
+            $(linkMatch[counter]).attr("href", response.attribution.url);
+        
+            counter++;
 
-      });//end of inner ajax call
-
-        }//end for
-		
-		console.log(dishesArray);
-		console.log(dishesImgUrls);
-		console.log(recipeUrls);
-			
-			});//end of ajax call 
-
+          });//end of inner ajax call
+        }//end for			
+			});//end of ajax outer call 
     });//end of database.ref()
-	
+  }//end of getFoodPairing()
 
-}//end of getFoodPairing()
-
-
+  /*searchBeer(): Makes the call to the beer API based on the beer name provided by the user.
+  //Displays the beer information.  Retrieves the style of the beer and calls the getFoodPairing()*/
 	function searchBeer() {
-	      event.preventDefault();
-          $(".beerbtn").attr("disabled", "disabled");
-          $("#form1").prop("disabled", true);
 
-	        var beer = $("#form1").val().trim();
-	        var queryURL = proxy + "https://api.brewerydb.com/v2/search?q=" + beer + "&type=beer&key=0191c57ff93f0b5868e91f7e67f611e7&format=json";
+	 event.preventDefault();
+	 
+   var beer = $("#form1").val().trim();
+	 var queryURL = proxy + "https://api.brewerydb.com/v2/search?q=" + 
+    beer + "&type=beer&key=0191c57ff93f0b5868e91f7e67f611e7&format=json";
 
-	        $.ajax({
-	          url: queryURL,
-	          method: "GET",
-	          crossDomain: true,
-	          dataType: "json",
-	          contentType: "application/json"
-	        }).done(function(response) {
-	          callResults = Object.keys(response);
-	          console.log(callResults);
-	          console.log(callResults.length);
-	          	//check to make sure search has a valid response from the api
-			    if (callResults.length > 2) {
-			    	beerIndex = Object.keys(response.data[0]);
-			    	console.log(beerIndex);
-			    	// append results to page
-			        var beerDiv = $("<div>");
-			       	var beerHeader = $("<h3>");
-			       	var styleHeader = $("<h3>");
-			       	var beerImg = $("<img>");
-			       	var glassHeader = $("<h3>");
-			       	var beerTempDisplay = $("<h3>");
+	 $.ajax({
+	   url: queryURL,
+	   method: "GET",
+	   crossDomain: true,
+	   dataType: "json",
+	   contentType: "application/json"
+	 }).done(function(response) {
+	   callResults = Object.keys(response);
+	          
+	    //Check to make sure search has a valid response from the Beer API
+		  if (callResults.length > 2) {
 
+			 beerIndex = Object.keys(response.data[0]);
+			 
+       //Append beer's results to page
+			 var beerDiv = $("<div>");
+			 var beerHeader = $("<h3>");
+			 var styleHeader = $("<h3>");
+			 var beerImg = $("<img>");
+			 var glassHeader = $("<h3>");
+			 var beerTempDisplay = $("<h3>");
 
-			    	  if (beerIndex.includes("name")) {
-			    	  	//Get Beer Name and add it to Header
-					    beerResult = response.data[0].name;
-					    beerHeader.html(beerResult);
-					    beerHeader.addClass("beerinfo");
-					    } if (beerIndex.includes("style")) {
-					    	//Get Style and add to header
-				            style = response.data[0].style.name;
+			 if (beerIndex.includes("name")) {
 
-                    if(style.includes("/")){
-                      var position = style.indexOf("/");
-                      style = style.substring(0,position);
-                      console.log("style with no /: " + style);
-                    }//end of if
+			    //Get Beer name and adds it to Header
+					beerResult = response.data[0].name;
+					beerHeader.html(beerResult);
+					beerHeader.addClass("beerinfo");
 
-				            styleHeader.html(style);
+			 } //end of if statement
+       if (beerIndex.includes("style")) {
+					
+          //Get Style and add to header
+				  style = response.data[0].style.name;
+            
+            /*Determines if the beer style contains a '/', 
+            //takes the first part of the style string.*/
+            if(style.includes("/")){
 
-             				getFoodPairing();
+              var position = style.indexOf("/");              
+              style = style.substring(0,position);
+                      
+            }//end of if
 
-				            styleHeader.addClass("beerinfo");
+				  styleHeader.html(style);
 
-				           } if (beerIndex.includes("labels")) {
-				           	  //Get label and add it to image
-				        	  label = response.data[0].labels.medium;
-				        	  beerImg.attr("src", label);
-			       			  beerImg.addClass("beer-img");
-				        	} if (beerIndex.includes("glasswareId")) {
-				        		//Add Glass picture and info
-				        	    glassID = response.data[0].glasswareId;
-				        	    glassHeader.html(glassware[glassID - 1].name);
-				        	    glassHeader.addClass("beerinfo");
-			       				$("#glass-image").attr("src", glassware[glassID - 1].picture);
-				        	  } if (beerIndex.includes("servingTemperatureDisplay")) {
-				        	  	var beerTemp = "Served: " + response.data[0].servingTemperatureDisplay;
-				        	  	beerTempDisplay.html(beerTemp);
-				        	  	beerTempDisplay.addClass("beerinfo");
-				        	  };
+          //Call to get the recipes' information based on the beer style.
+          getFoodPairing();
 
+				  styleHeader.addClass("beerinfo");
 
-			       	beerDiv.append(beerHeader, styleHeader, beerImg);
+				} //end of if
+        if (beerIndex.includes("labels")) {
 
+				  //Get label and add it to image
+				  label = response.data[0].labels.medium;
+				  beerImg.attr("src", label);
+			    beerImg.addClass("beer-img");
 
-			       	$("#beer-results").empty();
-			       	$("#beer-results").append(beerDiv);
-			       	$("#glass-results").prepend(glassHeader, beerTempDisplay);
-			       //	Show Results page
-			       	$("#start-screen").css("display", "none");
-				    $("#results-screen").css("display", "block");
+				} //end of if
+        if (beerIndex.includes("glasswareId")) {
 
-			          console.log(beer);
-			          console.log(beerResult);
-			          console.log(style);
-				} else {
-			      //Alert user to pick another beer
-					$("#form1").prop("disabled", false);
-					console.log("not a beer...");
-					$("#main").html("Try Picking Another Beer");
+				  //Add Glass picture and info
+				  glassID = response.data[0].glasswareId;
+				  glassHeader.html(glassware[glassID - 1].name);
+				  glassHeader.addClass("beerinfo");
+          $("#glass-image").attr("src", glassware[glassID - 1].picture);
+				        	  
+        } //end of if statement
+        if (beerIndex.includes("servingTemperatureDisplay")) {
+				        	  	
+          var beerTemp = "Served: " + response.data[0].servingTemperatureDisplay;
+				  beerTempDisplay.html(beerTemp);
+				  beerTempDisplay.addClass("beerinfo");
+				};//end of if statement
+			  beerDiv.append(beerHeader, styleHeader, beerImg);
 
-	        	};
-	        });
-	}
-			//preselected beer button click
-		 $(".beerbtn").on("click", function searchbeerBtn() {
-	        event.preventDefault();       
-	        $(".beerbtn").attr("disabled", "disabled");
-	        var beer = $(this).text().trim();
-	        console.log(beer);
-	        var queryURL = proxy + "https://api.brewerydb.com/v2/search?q=" + beer + "&type=beer&key=0191c57ff93f0b5868e91f7e67f611e7&format=json";
+			  $("#beer-results").empty();
+			  $("#beer-results").append(beerDiv);
+			  $("#glass-results").prepend(glassHeader, beerTempDisplay);
+			  //	Show Results page
+			  $("#start-screen").css("display", "none");
+			  $("#results-screen").css("display", "block");
+			
+      //If it is not a valid beer
+      } else {
+			 //Alert user to pick another beer					
+				$("#main").html("Try Picking Another Beer");
 
-	        $.ajax({
-	          url: queryURL,
-	          method: "GET",
-	          crossDomain: true,
-	          dataType: "json",
-	          contentType: "application/json"
-	        }).done(function(response) {
-	          callResults = Object.keys(response);
-	          console.log(callResults);
-	          console.log(callResults.length);
-	          	//check to make sure search has a valid response from the api
-			    if (callResults.length > 2) {
-			    	beerIndex = Object.keys(response.data[0]);
-			    	console.log(beerIndex);
-				    console.log(response.data[0].abv);
-			    	// declare html variables
-			        var beerDiv = $("<div>");
-			       	var beerHeader = $("<h3>");
-			       	var styleHeader = $("<h3>");
-			       	var beerImg = $("<img>");
-			       	var glassHeader = $("<h3>");
-			       	var beerTempDisplay = $("<h3>");
+	    };//end of else statement
+	 });//end of ajax call
+	}//end of searchBeer()
 
+	//Pre-selected beer buttons click event
+	$(".beerbtn").on("click", function searchbeerBtn() {
+	
+    event.preventDefault();       
+	  $(".beerbtn").attr("disabled", "disabled");
+    
+    var beer = $(this).text().trim();
+	  var queryURL = proxy + "https://api.brewerydb.com/v2/search?q=" + 
+      beer + "&type=beer&key=0191c57ff93f0b5868e91f7e67f611e7&format=json";
 
-			    	  if (beerIndex.includes("name")) {
-			    	  	//Get Beer Name and add it to Header
-					    beerResult = response.data[0].name;
-					    beerHeader.html(beerResult);
-					    beerHeader.addClass("beerinfo");
-					    } if (beerIndex.includes("style")) {
-					    	//Get Style and add to header
-				            style = response.data[0].style.name;
-				            
-				            getFoodPairing();
+	  $.ajax({
 
-				            styleHeader.html(style);
-				            styleHeader.addClass("beerinfo");
-				           } if (beerIndex.includes("labels")) {
-				           	  //Get label and add it to image
-				        	  label = response.data[0].labels.medium;
-				        	  beerImg.attr("src", label);
-			       			  beerImg.addClass("beer-img");
-				        	} if (beerIndex.includes("glasswareId")) {
-				        		//Add Glass picture and info
-				        	    glassID = response.data[0].glasswareId;
-				        	    glassHeader.html(glassware[glassID - 1].name);
-				        	    glassHeader.addClass("beerinfo");
-			       				$("#glass-image").attr("src", glassware[glassID - 1].picture);
-				        	  } if (beerIndex.includes("servingTemperatureDisplay")) {
-				        	  	var beerTemp = "Served: " + response.data[0].servingTemperatureDisplay;
-				        	  	beerTempDisplay.html(beerTemp);
-				        	  	beerTempDisplay.addClass("beerinfo");
-				        	  };
-;
-			    
-			       	beerDiv.append(beerHeader, styleHeader, beerImg);
+	   url: queryURL,
+	   method: "GET",
+	   crossDomain: true,
+	   dataType: "json",
+	   contentType: "application/json"
 
-			       	$("#beer-results").empty();
-			       	$("#beer-results").append(beerDiv);
-			       	$("#glass-results").prepend(glassHeader, beerTempDisplay);
+	  }).done(function(response) {
 
-			       	//Show Results page
-			       	$("#start-screen").css("display", "none");
-				    $("#results-screen").css("display", "block");
+	    callResults = Object.keys(response);
 
-			          console.log(beer);
-			          console.log(beerResult);
-			          console.log(style);
-				};
-	        });
-	});
+     	//check to make sure search has a valid response from the api
+	    if (callResults.length > 2) {
+	    	beerIndex = Object.keys(response.data[0]);
+			 
+       //Declare html variables
+			 var beerDiv = $("<div>");
+			 var beerHeader = $("<h3>");
+			 var styleHeader = $("<h3>");
+			 var beerImg = $("<img>");
+			 var glassHeader = $("<h3>");
+			 var beerTempDisplay = $("<h3>");
+
+			 if (beerIndex.includes("name")) {
+			    	  	
+          //Get Beer Name and add it to Header
+					beerResult = response.data[0].name;
+					beerHeader.html(beerResult);
+					beerHeader.addClass("beerinfo");
+				} //end of if statement
+        if (beerIndex.includes("style")) {
+					    	
+            //Get Style and add to header
+				    style = response.data[0].style.name;
+				    
+            /*Determines if the beer style contains a '/', 
+            //takes the first part of the style string.*/
+            if(style.includes("/")){
+
+              var position = style.indexOf("/");              
+              style = style.substring(0,position);
+                      
+            }//end of if
+
+            //Call to get the recipes' information based on the beer style.
+				    getFoodPairing();
+
+				    styleHeader.html(style);
+				    styleHeader.addClass("beerinfo");
+				} //end of if statement
+        if (beerIndex.includes("labels")) {
+
+				  //Get label and add it to image
+				  label = response.data[0].labels.medium;
+				  beerImg.attr("src", label);
+			    beerImg.addClass("beer-img");
+			  } //end of if statement
+        if (beerIndex.includes("glasswareId")) {
+
+				  //Add Glass picture and info
+				  glassID = response.data[0].glasswareId;
+				  glassHeader.html(glassware[glassID - 1].name);
+				  glassHeader.addClass("beerinfo");
+
+			   $("#glass-image").attr("src", glassware[glassID - 1].picture);
+				} //end of if statement
+        if (beerIndex.includes("servingTemperatureDisplay")) {
+				  var beerTemp = "Served: " + response.data[0].servingTemperatureDisplay;
+				  beerTempDisplay.html(beerTemp);
+				  beerTempDisplay.addClass("beerinfo");
+				};			    
+			 
+        beerDiv.append(beerHeader, styleHeader, beerImg);
+
+			 	$("#beer-results").empty();
+			  $("#beer-results").append(beerDiv);
+			  $("#glass-results").prepend(glassHeader, beerTempDisplay);
+
+			 //Show Results page
+			 	$("#start-screen").css("display", "none");
+			  $("#results-screen").css("display", "block");
+			};//end of outer if statement
+	 });//end of ajax call
+	});//end of pre-selected beer button event
 });//end $('document').ready
