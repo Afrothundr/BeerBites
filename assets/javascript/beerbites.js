@@ -83,6 +83,7 @@ $('document').ready(function(){
   var database = firebase.database();
 
 	$("#searchpic").click(function(){
+		$("#form1").prop("disabled", true);
 		searchBeer();
 	});
 
@@ -91,12 +92,15 @@ $('document').ready(function(){
 		$("#results-screen").css("display", "none");
 		$("input[type=text], textarea").val("");
 		$(".beerinfo").remove();
+		$(".beerbtn").removeAttr("disabled");
+		$("#form1").prop("disabled", false);
 	})
 
 	// add enter button submit capabilities
 	$(document).keypress(function(e) {
 		 if(e.which == 13 && $("#form1").val().trim() !== ""){//Enter key pressed
-            $('#searchpic').click();//Trigger search button click event
+            $("#form1").prop("disabled", true);
+            searchBeer();//Trigger search button click event
         }
     });
 
@@ -169,7 +173,9 @@ $('document').ready(function(){
 
 
 	function searchBeer() {
-	        event.preventDefault();
+	      event.preventDefault();
+          $(".beerbtn").attr("disabled", "disabled");
+          $("#form1").prop("disabled", true);
           style = "american light lager";
 	        var beer = $("#form1").val().trim();
 	        var queryURL = proxy + "https://api.brewerydb.com/v2/search?q=" + beer + "&type=beer&key=0191c57ff93f0b5868e91f7e67f611e7&format=json";
@@ -253,6 +259,7 @@ $('document').ready(function(){
 			//preselected beer button click
 		 $(".beerbtn").on("click", function searchbeerBtn() {
 	        event.preventDefault();       
+	        $(".beerbtn").attr("disabled", "disabled");
 	        var beer = $(this).text().trim();
 	        console.log(beer);
 	        var queryURL = proxy + "https://api.brewerydb.com/v2/search?q=" + beer + "&type=beer&key=0191c57ff93f0b5868e91f7e67f611e7&format=json";
