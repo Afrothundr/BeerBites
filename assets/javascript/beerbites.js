@@ -14,6 +14,8 @@ $('document').ready(function(){
   var idMatch = ["#recipe-1", "#recipe-2", "#recipe-3"];
   var titleMatch =["#title-1", "#title-2", "#title-3"];
   var linkMatch = ["#border-1", "#border-2", "#border-3"];
+  var enterKeyCounter = 0;
+  var searchButtonCounter = 0;
 	//glassware object array
 	var glassware = [
 	{ id: '1',
@@ -105,8 +107,12 @@ $('document').ready(function(){
 
   //Click event for search button
 	$("#searchpic").click(function(){
+	searchButtonCounter++;
+	// check to make sure submit was only hit once
+		if (searchButtonCounter < 2) {
 		$("#form1").prop("disabled", true);
 		searchBeer();
+	}; 
 	});//end of event
 
   //Click event for Search Another Beer button
@@ -118,16 +124,18 @@ $('document').ready(function(){
     $(".beerbtn").removeAttr("disabled");
     $("#form1").prop("disabled", false);$(".beerbtn").removeAttr("disabled");
     $("#form1").prop("disabled", false);
-
+    enterKeyCounter = 0;
+    searchButtonCounter = 0;
 	});//end of event
 
 
 
 	//Add enter button submit capabilities
 	$(document).keypress(function(e) {
-		 if(e.which == 13 && $("#form1").val().trim() !== ""){//Enter key pressed
+		 if(e.which == 13 && $("#form1").val().trim() !== "" && enterKeyCounter < 1){//Enter key pressed
             $("#form1").prop("disabled", true);
-            searchBeer();//Trigger search button click event
+            searchBeer();//Trigger search beer function
+            enterKeyCounter++;
         }
   });//end of event
 
@@ -275,8 +283,13 @@ $('document').ready(function(){
 				  beerTempDisplay.html(beerTemp);
 				  beerTempDisplay.addClass("beerinfo");
 				};//end of if statement
+			  
+		if (label == "") {
+			beerImg.attr("src", "assets/images/no-label.png");
+			beerImg.addClass("beer-img");
+			beerImg.css("width", "200px");
+		}; 
 			  beerDiv.append(beerHeader, styleHeader, beerImg);
-
 			  $("#beer-results").empty();
 			  $("#beer-results").append(beerDiv);
 			  $("#glass-results").prepend(glassHeader, beerTempDisplay);
@@ -288,7 +301,7 @@ $('document').ready(function(){
       } else {
 			 //Alert user to pick another beer	
         $("#form1").prop("disabled",false);			
-				$("#main").html("Try Picking Another Beer");
+		$("#main").html("Try Picking Another Beer");
 
 	    };//end of else statement
 	 });//end of ajax call
@@ -379,12 +392,12 @@ $('document').ready(function(){
 			 
         beerDiv.append(beerHeader, styleHeader, beerImg);
 
-			 	$("#beer-results").empty();
+			  $("#beer-results").empty();
 			  $("#beer-results").append(beerDiv);
 			  $("#glass-results").prepend(glassHeader, beerTempDisplay);
 
 			 //Show Results page
-			 	$("#start-screen").css("display", "none");
+			  $("#start-screen").css("display", "none");
 			  $("#results-screen").css("display", "block");
 			};//end of outer if statement
 	 });//end of ajax call
