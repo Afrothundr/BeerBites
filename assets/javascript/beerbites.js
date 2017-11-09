@@ -10,12 +10,12 @@ $('document').ready(function(){
 	var beerIndex = [];
 	var dishesImgUrls = [];
 	var recipeUrls = [];
-  var searchFood = "";
-  var idMatch = ["#recipe-1", "#recipe-2", "#recipe-3"];
-  var titleMatch =["#title-1", "#title-2", "#title-3"];
-  var linkMatch = ["#border-1", "#border-2", "#border-3"];
-  var enterKeyCounter = 0;
-  var searchButtonCounter = 0;
+    var searchFood = "";
+    var idMatch = ["#recipe-1", "#recipe-2", "#recipe-3"];
+    var titleMatch =["#title-1", "#title-2", "#title-3"];
+    var linkMatch = ["#border-1", "#border-2", "#border-3"];
+    var enterKeyCounter = 0;
+    var searchButtonCounter = 0;
 	//glassware object array
 	var glassware = [
 	{ id: '1',
@@ -110,7 +110,6 @@ $('document').ready(function(){
 	searchButtonCounter++;
 	// check to make sure submit was only hit once
 		if (searchButtonCounter < 2) {
-		$("#form1").prop("disabled", true);
 		searchBeer();
 	}; 
 	});//end of event
@@ -300,9 +299,10 @@ $('document').ready(function(){
       //If it is not a valid beer
       } else {
 			 //Alert user to pick another beer	
-        $("#form1").prop("disabled",false);			
+        $("#form1").prop("disabled",false);		
 		$("#main").html("Try Picking Another Beer");
-
+		enterKeyCounter = 0;
+		searchButtonCounter = 0;
 	    };//end of else statement
 	 });//end of ajax call
 	}//end of searchBeer()
