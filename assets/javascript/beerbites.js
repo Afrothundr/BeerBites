@@ -139,6 +139,7 @@ $('document').ready(function(){
    		 }).done(function(response){
         console.log(response);
         dishesImgUrls.push(response.images[0].hostedLargeUrl);
+
         recipeUrls.push(response.attribution.url);
 		
      	var recipeSlide = $("<div>");
@@ -170,7 +171,7 @@ $('document').ready(function(){
 
 	function searchBeer() {
 	        event.preventDefault();
-          style = "american light lager";
+          //style = "american light lager";
 	        var beer = $("#form1").val().trim();
 	        var queryURL = proxy + "https://api.brewerydb.com/v2/search?q=" + beer + "&type=beer&key=0191c57ff93f0b5868e91f7e67f611e7&format=json";
 
@@ -205,6 +206,13 @@ $('document').ready(function(){
 					    } if (beerIndex.includes("style")) {
 					    	//Get Style and add to header
 				            style = response.data[0].style.name;
+
+                    if(style.includes("/")){
+                      var position = style.indexOf("/");
+                      style = style.substring(0,position);
+                      console.log("style with no /: " + style);
+                    }//end of if
+
 				            styleHeader.html(style);
 
              				getFoodPairing();
@@ -328,6 +336,4 @@ $('document').ready(function(){
 				};
 	        });
 	});
-});
-
-
+});//end $('document').ready
