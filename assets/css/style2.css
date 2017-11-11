@@ -178,4 +178,6 @@ p {
 	width: 300px;
 }
 
-
+#searchColumn {
+	text-align: center;
+}
