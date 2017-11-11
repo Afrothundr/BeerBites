@@ -1,5 +1,5 @@
 #jumbotron {
-	background-image: url(../images/Header.png);
+	background-image: url(../images/header.png);
 	margin-bottom: 0px;
     background-position: 0% 25%;
     background-size: cover;
@@ -178,6 +178,5 @@ p {
 	width: 300px;
 }
 
-#searchColumn {
-	text-align: center;
-}
+
+

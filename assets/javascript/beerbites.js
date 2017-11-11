@@ -1,6 +1,6 @@
 
 $('document').ready(function(){
-  $("#searchAgain").css("display", "none");
+
 	var proxy = "https://arcane-lake-48943.herokuapp.com/"
 	var beerResult = null;
 	var style = "";
@@ -125,7 +125,6 @@ $('document').ready(function(){
     $("#form1").prop("disabled", false);
     enterKeyCounter = 0;
     searchButtonCounter = 0;
-    $("#searchAgain").css("display", "none");
 	});//end of event
 
 
@@ -296,7 +295,6 @@ $('document').ready(function(){
 			  //	Show Results page
 			  $("#start-screen").css("display", "none");
 			  $("#results-screen").css("display", "block");
-			  $("#searchAgain").css("display", "inline-block");
 			
       //If it is not a valid beer
       } else {
@@ -401,7 +399,6 @@ $('document').ready(function(){
 			 //Show Results page
 			  $("#start-screen").css("display", "none");
 			  $("#results-screen").css("display", "block");
-			  $("#searchAgain").css("display", "inline-block");
 			};//end of outer if statement
 	 });//end of ajax call
 	});//end of pre-selected beer button event
