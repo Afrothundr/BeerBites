@@ -1,9 +1,10 @@
 #jumbotron {
-	background-image: url(../images/Header.png);
-	margin-bottom: 0px;
+    background-image: url(../images/Header.png);
+    margin-bottom: 0px;
     background-position: 0% 25%;
     background-repeat: no-repeat;
     height: 300px;
+    object-fit: cover;
 
 }
  
